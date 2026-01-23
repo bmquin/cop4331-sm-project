@@ -2,6 +2,9 @@
     "name": "noah/cop4331-sm-project",
     "type": "project",
     "license": "MIT",
+    "scripts": {
+      "dev": "@php -S localhost:8000 -t public"
+    },
     "authors": [
         {
             "name": "Noah Gerard",
