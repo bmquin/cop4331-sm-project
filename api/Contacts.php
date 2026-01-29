@@ -40,6 +40,12 @@ if(get_request_method() == 'POST' || get_request_method() == 'PUT') {
 # Setup mysql connection
 $conn = init_db_connection();
 
+# Check if target user exists
+if(!check_user_exists($conn, $user_id)) {
+    $conn->close();
+    send_error("User does not exist");
+}
+
 # TODO: confirm user session, send error if session is invalid.
 
 #----------------------
