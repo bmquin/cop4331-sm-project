@@ -1,52 +1,52 @@
 <?php
 
-namespace Utils\Http;
+#--------------------------
+#  Client Request Utility
+#--------------------------
 
-class ClientRequest {
-    public $method;
-    public $uri;
-    public $headers;
-    public $body;
+function get_request_method() {
+    return $_SERVER['REQUEST_METHOD'];
+}
 
-    public function __construct() {
-        $this->method = $_SERVER['REQUEST_METHOD'];
-        $this->uri = $_SERVER['REQUEST_URI'];
-        $this->headers = getallheaders();
-        $this->body = file_get_contents('php://input');
-    }
+function get_uri() {
+    return $_SERVER['REQUEST_URI'];
+}
 
-    function getJsonBody() {
-        $json_body = json_decode($this->body);
-        if(json_last_error() == JSON_ERROR_NONE) {
-            return (array) $json_body;
-        } else {
-            return null;
-        }
+function get_body() {
+    return file_get_contents('php://input');
+}
+
+function get_json_body() {
+    $json_body = json_decode(get_body());
+    if(json_last_error() == JSON_ERROR_NONE) {
+        return (array) $json_body;
+    } else {
+        return null;
     }
 }
 
-class ServerResponse {
-    public $body = [];
+#---------------------------
+#  Server Response Utility
+#---------------------------
 
-    function sendJson() {
-        header('Content-Type: application/json');
-        echo json_encode($this->body);
-        exit;
-    }
+function send_json(object|array $body) {
+    header('Content-Type: application/json');
+    echo json_encode($body);
+    exit;
+}
 
-    function sendResult($res) {
-        $this->body = ["status" => "success", "result" => array_values((array)$res)];
-        $this->sendJson();
-    }
+function send_result(object|array $res) {
+    $body = ["status" => "success", "result" => array_values((array)$res)];
+    send_json($body);
+}
 
-    function sendError($msg, $error_code = 500) {
-        http_response_code($error_code);
-        $this->body = ["status" => "error", "message" => $msg];
-        $this->sendJson();
-    }
+function send_error(string $msg, int $error_code = 500) {
+    http_response_code($error_code);
+    $body = ["status" => "error", "message" => $msg];
+    send_json($body);
+}
 
-    function sendSuccess() {
-        $this->body = ["status" => "success"];
-        $this->sendJson();
-    }
-};
+function send_success() {
+    $body = ["status" => "success"];
+    send_json($body);
+}
