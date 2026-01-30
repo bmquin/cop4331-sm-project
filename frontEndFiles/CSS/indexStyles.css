@@ -1,0 +1,40 @@
+/*Code written by Adam Betinsky */
+
+body{
+    background-image: url("../images/Index Background.jpg");
+    background-size: 100%;
+}
+
+.mainStuff{
+    background-color: rgb(0, 2, 31);
+    margin: 50px;
+    text-align: center;
+}
+
+h1, h2, a{
+    color: white;
+    text-align: center;
+}
+
+.copierButton{
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.copierButton img{
+    width:50px;
+    height: auto;
+    display: block;
+}
+
+.copierButton span{
+    color: white;
+    position:absolute;
+    top: 50%;
+    bottom: 50%;
+    nav-left: 100%;
+}
+
+
+
