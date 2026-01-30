@@ -5,12 +5,6 @@ require __DIR__ . '/_utils/Http.php';
 require __DIR__ . '/_utils/api.php';
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Dotenv\Dotenv;
-
-# Load environment variables
-$dotenv = Dotenv::createImmutable(dirname(__DIR__));
-$dotenv->load();
-
 # Send error if request body isn't json formatted
 $data = get_json_body();
 if(get_request_method() != 'GET' && $data === null) {
@@ -38,6 +32,9 @@ if(get_request_method() == 'POST' || get_request_method() == 'PUT') {
 }
 
 # Setup mysql connection
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
+
 $conn = init_db_connection();
 
 # Check if target user exists
