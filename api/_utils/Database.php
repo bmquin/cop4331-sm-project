@@ -23,4 +23,27 @@ function check_user_exists(mysqli $conn, int $user_id) {
     return null;
   }
   return false;
+# Check if user with username already exists
+function unique_username(mysqli $db, string $username)
+{
+  $statement = $db->prepare("SELECT id FROM users WHERE username = ?");
+  $statement->bind_param("s", $username);
+  $statement->execute();
+
+  $result = $statement->get_result();
+
+  return $result->num_rows === 0;
+}
+
+function create_user(mysqli $db, string $username, string $hashed_password)
+{
+  $statement = $db->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+  $statement->bind_param("ss", $username, $hashed_password);
+  $statement->execute();
+
+  if ($statement->execute()) {
+    return true;
+  } else {
+    return false;
+  }
 }
