@@ -14,12 +14,19 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
 // Capture and sanitize input
 $username = sanitize_input($_POST["username"] ?? "");
+$email = trim($_POST["email"] ?? "");
 $password = sanitize_input($_POST["password"] ?? "");
 
 /* Validate inputs */
 if (!validate_username($username)) {
   http_response_code(400);
   echo json_encode(["error" => "Invalid username"]);
+  exit;
+}
+
+if (!validate_email($email)) {
+  http_response_code(400);
+  echo json_encode(["error" => "Invalid email"]);
   exit;
 }
 
@@ -38,7 +45,7 @@ if (!unique_username($db_connection, $username)) {
 
 /* Create User */
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-$create_user_success = create_user($db_connection, $username, $hashed_password);
+$create_user_success = create_user($db_connection, $username, $email, $hashed_password);
 
 if ($create_user_success) {
   echo json_encode(["message" => "Successfully created a new user"]);
@@ -48,3 +55,4 @@ if ($create_user_success) {
 }
 
 $db_connection->close();
+exit;

@@ -1,10 +1,15 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
-function sanitize_input(string $input) {
-   $input = trim($input);
-   $input = htmlspecialchars($input);
-   return $input;
+# Load environment variables
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
+
+function sanitize_input(string $input)
+{
+  $input = trim($input);
+  $input = htmlspecialchars($input);
+  return $input;
 }
 
 function validate_password(string $password)
@@ -30,8 +35,9 @@ function validate_email(string $email)
   return true;
 }
 
-function validate_username(string $username) {
-  if (strlen($username) || strlen($username) > 10) {
+function validate_username(string $username)
+{
+  if (strlen($username) < 3 || strlen($username) > 10) {
     return false;
   }
 
