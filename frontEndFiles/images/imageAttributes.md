@@ -1,5 +1,3 @@
-Copier 1: <a href="https://www.flaticon.com/free-icons/photocopy" title="photocopy icons">Photocopy icons created by Muhammad Waqas Khan - Flaticon</a>
-
 USED - Index Background: https://www.pexels.com/photo/lines-of-code-2653362/
     License - https://www.pexels.com/license/
 
@@ -10,6 +8,6 @@ Office Entrance:
 
 GPT Images: Copier Up Close (USED), Copy Logo, Human Resources
 
-Login icon:
+New Office background:
+https://stock.adobe.com/search?k=empty+office
 
-<a href="https://www.flaticon.com/free-icons/log-in" title="log-in icons">Log-in icons created by RIkas Dzihab - Flaticon</a>
