@@ -9,5 +9,35 @@ body {
 .mainStuff {
   margin: 50px;
   text-align: center;
+  background-color: rgba(0, 0, 79, 0.8);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 250px;
   position: relative;
+  width: 80%;
+  padding: 100px;
+  padding-bottom: 5px;
+  color: white;
+}
+
+.mainStuff h1 {
+  font-size: 50px;
+  margin-top: -100px;
+}
+
+.mainStuff h2{
+  font-size: 50px;
+}
+
+.mainStuff ul
+{
+   list-style-position: outside;
+  margin: 20px auto;     /* centers the entire list */
+  padding-left: 20px;    /* controls bullet indent */
+  text-align: left;      /* aligns text + bullets consistently */
+  width: fit-content;    /* shrink-wrap to content */
+}
+
+strong{
+  color:red;
 }

@@ -1,9 +1,8 @@
 /*Code written by Adam Betinsky */
 
 body {
-  background-image: url("../images/backgroundPictures/OfficeEntrance.jpg");
+  background-image: url("../images/backgroundPictures/OfficeLogo.jpg");
   background-size: 100%;
-  background-position: 20%;
   background-repeat: no-repeat;
 }
 
