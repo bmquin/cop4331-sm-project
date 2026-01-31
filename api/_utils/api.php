@@ -43,3 +43,30 @@ function validate_username(string $username)
 
   return true;
 }
+
+function validate_legal_name(string $name) 
+{
+  if (strlen($name) < 3 || strlen($name) > 30) {
+    return false;
+  }
+
+  # Check if name only contains letters
+  if (!preg_match("~^[a-zA-Z]+$~", $name)) {
+    return false;
+  }
+
+  return true;
+}
+
+# Lossly validates phone number
+function validate_phone(string $phone) 
+{
+  # Remove all '-' and ' ' from phone number
+  $phone = preg_replace('~[-\\s]~', '', $phone);
+
+  if (strlen($phone) > 17 || !preg_match("~[0-9]+~", $phone)) {
+    return false;
+  }
+
+  return true;
+}

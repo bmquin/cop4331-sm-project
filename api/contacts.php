@@ -26,8 +26,16 @@ if (get_request_method() == 'POST' || get_request_method() == 'PUT') {
   $phone = sanitize_input($phone);
   $email = sanitize_input($email);
 
+  if (!validate_legal_name($first_name) || !validate_legal_name($last_name)) {
+    send_error("Invalid first or last name", 400);
+  }
+
+  if (!validate_phone($phone)) {
+    send_error("Invalid phone number", 400);
+  }
+
   if (!validate_email($email)) {
-    send_error("Invalid email address");
+    send_error("Invalid email", 400);
   }
 }
 
@@ -65,7 +73,7 @@ if (get_request_method() == 'POST') {
 #------------------------
 #  PUT - modify contact
 #------------------------
-if (get_request_method() == 'PUT') {
+else if (get_request_method() == 'PUT') {
   $success = modify_contact($db, $user_id, $contact_id, $first_name, $last_name, $phone, $email);
   $db->close();
 
