@@ -13,11 +13,11 @@ function init_db_connection()
   return $db_conn;
 }
 
-function check_user_exists(mysqli $conn, int $user_id)
+function check_user_exists(mysqli $db, int $user_id)
 {
   try {
-    $res = $conn->query("SELECT id FROM users WHERE id = $user_id LIMIT 1");
-    return $res->num_rows > 0;
+    $result = $db->query("SELECT id FROM users WHERE id = $user_id LIMIT 1");
+    return $result->num_rows > 0;
   } catch (mysqli_sql_exception $e) {
     return null;
   }
