@@ -15,13 +15,13 @@ function init_db_connection()
 
 function check_user_exists(mysqli $db, int $user_id)
 {
-  try {
-    $result = $db->query("SELECT id FROM users WHERE id = $user_id LIMIT 1");
-    return $result->num_rows > 0;
-  } catch (mysqli_sql_exception $e) {
-    return null;
-  }
-  return false;
+  $statement = $db->prepare("SELECT id FROM users WHERE id = ? LIMIT 1");
+  $statement->bind_param("i", $user_id);
+  $statement->execute();
+
+  $result = $statement->get_result();
+
+  return $result->num_rows > 0;
 }
 
 # Check if user with username already exists
@@ -46,4 +46,55 @@ function create_user(mysqli $db, string $username, string $email, string $hashed
   } else {
     return false;
   }
+}
+
+#-----------------------------
+#  Contact Database Utility
+#-----------------------------
+
+function check_contact_exists(mysqli $db, int $contact_id) 
+{
+  $statement = $db->prepare("SELECT id FROM contacts WHERE id = ? LIMIT 1");
+  $statement->bind_param("i", $contact_id);
+  $statement->execute();
+
+  $result = $statement->get_result();
+
+  return $result->num_rows > 0;
+}
+
+function add_contact(mysqli $db, int $user_id, string $first_name, string $last_name, string $phone, string $email) 
+{
+  $statement = $db->prepare("INSERT INTO contacts (user_id, first_name, last_name, phone, email) VALUES (?, ?, ?, ?, ?)");
+  $statement->bind_param("issss", $user_id, $first_name, $last_name, $phone, $email);
+
+  return (bool) $statement->execute();
+}
+
+function modify_contact(mysqli $db, int $user_id, int $contact_id, string $first_name, string $last_name, string $phone, string $email)
+{
+  $statement = $db->prepare("UPDATE contacts SET first_name = ?, last_name = ?, phone = ?, email = ? WHERE id = ? AND user_id = ?");
+  $statement->bind_param("ssssii", $first_name, $last_name, $phone, $email, $contact_id, $user_id);
+
+  return (bool) $statement->execute();
+}
+
+function remove_contact(mysqli $db, int $user_id, int $contact_id)
+{
+  $statement = $db->prepare("DELETE FROM contacts WHERE id = ? AND user_id = ?");
+  $statement->bind_param("ii", $contact_id, $user_id);
+  
+  return (bool) $statement->execute();
+}
+
+function get_contacts(mysqli $db, int $user_id) 
+{
+  $statement = $db->prepare("SELECT * FROM contacts WHERE user_id = ?");
+  $statement->bind_param("i", $user_id);
+  $statement->execute();
+
+  $result = $statement->get_result();
+  $contacts = $result->fetch_all(MYSQLI_ASSOC);
+
+  return $contacts;
 }

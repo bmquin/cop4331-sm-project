@@ -1,7 +1,7 @@
 <?php
 
-require __DIR__ . '/_utils/Database.php';
-require __DIR__ . '/_utils/Http.php';
+require __DIR__ . '/_utils/database.php';
+require __DIR__ . '/_utils/http.php';
 require __DIR__ . '/_utils/api.php';
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -40,81 +40,63 @@ if (!check_user_exists($db, $user_id)) {
   send_error("User does not exist", 400);
 }
 
+# Check if target contact exists
+if ((get_request_method() == 'PUT' || get_request_method() == 'DELETE') && !check_contact_exists($db, $contact_id)) {
+  $db->close();
+  send_error("Contact does not exist", 400);
+}
+
 # TODO: confirm user session, send error if session is invalid.
 
 #----------------------
 #  POST - add contact
 #----------------------
 if (get_request_method() == 'POST') {
-  try {
-    $statement = "INSERT INTO contacts (user_id, first_name, last_name, phone, email) VALUES ('$user_id', '$first_name', '$last_name', '$phone', '$email')";
-    $result = $db->query($statement);
-
-  } catch (mysqli_sql_exception $e) {
-    $db->close();
-    send_error("Internal server error");
-  }
-
+  $success = add_contact($db, $user_id, $first_name, $last_name, $phone, $email);
   $db->close();
-  send_message("Successfully added contact");
+
+  if ($success) {
+    send_message("Successfully added contact");
+  } else {
+    send_error("Could not add contact", 500);
+  }
 } 
 
 #------------------------
-#  PUT - update contact
+#  PUT - modify contact
 #------------------------
 if (get_request_method() == 'PUT') {
-  try {
-    $statement = "UPDATE contacts SET first_name = '$first_name', last_name = '$last_name', phone = '$phone', email = '$email' WHERE id = '$contact_id' AND user_id = '$user_id'";
-    $result = $db->query($statement);
-
-  } catch (mysqli_sql_exception $e) {
-    $db->close();
-    send_error("Internal server error");
-  }
-
-  if ($db->affected_rows == 0) {
-    $db->close();
-    send_error("Contact does not exist, existing values are already equal to new values, or user does not have this contact", 400);
-  }
-
+  $success = modify_contact($db, $user_id, $contact_id, $first_name, $last_name, $phone, $email);
   $db->close();
-  send_message("Successfully updated contact");
+
+  if ($success) {
+    send_message("Successfully updated contact");
+  } else {
+    send_error("Could not update contact", 500);
+  }
 }
 
 #---------------------------
 #  DELETE - remove contact
 #---------------------------
 else if (get_request_method() == 'DELETE') {
-  try {
-    $result = $db->query("DELETE FROM contacts WHERE id = $contact_id AND user_id = $user_id");
-  } catch (mysqli_sql_exception $e) {
-    $db->close();
-    send_error("Internal server error");
-  }
-
-  if ($db->affected_rows == 0) {
-    $db->close();
-    send_error("Contact does not exist or user does not have this contact", 400);
-  }
-
+  $success = remove_contact($db, $user_id, $contact_id);
   $db->close();
-  send_message("Successfully removed contact");
+
+  if ($success) {
+    send_message("Successfully removed contact");
+  } else {
+    send_error("Could not remove contact", 500);
+  }
 }
 
 #----------------------
 #  GET - get contacts
 #----------------------
 else if (get_request_method() == 'GET') {
-  try {
-    $result = $db->query("SELECT * FROM contacts WHERE user_id = $user_id");
-  } catch (mysqli_sql_exception $e) {
-    $db->close();
-    send_error("Internal server error");
-  }
-
-  $contacts = $result->fetch_all(MYSQLI_ASSOC);
-
+  $contacts = get_contacts($db, $user_id);
   $db->close();
+
   send_result($contacts);
 }
 

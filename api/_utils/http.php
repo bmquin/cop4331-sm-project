@@ -53,7 +53,8 @@ function send_error(string $msg, int $error_code = 500)
   send_json($body);
 }
 
-function send_message($msg) {
+function send_message($msg) 
+{
   $body = ["message" => $msg];
   send_json($body);
 }
