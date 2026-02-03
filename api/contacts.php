@@ -13,7 +13,7 @@ if (get_request_method() != 'GET' && $data === null) {
 }
 
 # Retrieve contact information
-$user_id = getallheaders()['user_id'] ?? null;
+$user_id = explode("/", get_uri())[3];
 $contact_id = $data['contact_id'] ?? null;
 $first_name = $data['first_name'] ?? null;
 $last_name = $data['last_name'] ?? null;
