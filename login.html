@@ -34,5 +34,20 @@
           alt="About the Developers Logo"
       /></a>
     </section>
+      <form class="signin-form" action="api/user/login.php" method="POST">
+        <input
+          type="text"
+          name="username"
+          placeholder="Enter your Username"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Enter your Password"
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
   </body>
 </html>
