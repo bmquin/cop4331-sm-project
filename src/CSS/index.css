@@ -1,3 +1,5 @@
+/* Code written by Pranav Cheruku */
+
 @import url("https://fonts.googleapis.com/css?family=Poppins");
 
 * {
@@ -157,6 +159,13 @@ header {
     top: -5px;
 }
 
+/* How I fixed autofill trashing the UI
+    https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete */
+input:-webkit-autofill {
+    -webkit-text-fill-color: #fff;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
 .input-box input {
     width: 100%;
     height: 100%;
@@ -235,10 +244,10 @@ ion-icon {
     z-index: 100;
     overflow: hidden;
     transform: translateY(calc(-100% - 35px));
-    transition: .4s ease;
+    transition: 0.4s ease;
 }
 
-.alert-box.show{
+.alert-box.show {
     transform: translateY(0);
 }
 
@@ -265,9 +274,9 @@ ion-icon {
     background: red;
 }
 
-@keyframes progress{
-    100%{
-        width:0;
+@keyframes progress {
+    100% {
+        width: 0;
     }
 }
 
