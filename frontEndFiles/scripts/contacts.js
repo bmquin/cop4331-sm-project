@@ -97,7 +97,7 @@ async function editContact(id, first, last, phone, email) {
     // temporary user id - REMOVE LATER
     const userId = 1;
 
-    await fetch("/api/users/${userId}/contacts", {
+    await fetch(`/api/users/${userId}/contacts`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
