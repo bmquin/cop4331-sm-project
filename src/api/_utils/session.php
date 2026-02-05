@@ -3,14 +3,16 @@ session_start();
 
 function is_logged_in()
 {
-  // TEMPORARY DEV LOGIN
-  return true;
+  if (isset($_SESSION["logged_in"])) {
+    return $_SESSION["logged_in"];
+  }
+
+  return false;
 }
 
 function session_user_id()
 {
-  // TEMPORARY DEV USER ID
-  return 1;
+  return $_SESSION["user_id"];
 }
 
 
