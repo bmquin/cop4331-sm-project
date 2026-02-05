@@ -1,65 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
-<head>
-	<meta charset="UTF-8" />
-	<title>My Contacts</title>
-	<link rel="stylesheet" href="/CSS/header.css" />
-	<style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>COPY - Landing Page</title>
+        <link href="CSS/contacts.css" rel="stylesheet" />
+    </head>
 
-        input, button {
-            padding: 6px;
-            margin: 4px 0;
-        }
+    <body>
+        <header>
+            <nav class="navigation">
+                <a href="about.html">About us</a>
+            </nav>
+        </header>
 
-        .contact {
-            border-bottom: 1px solid #ccc;
-            padding: 10px 0;
-        }
+        <input
+            type="text"
+            id="search"
+            placeholder="Search contacts..."
+            oninput="loadContacts()"
+        />
 
-        .name {
-            font-weight: bold;
-        }
+        <button onclick="loadContacts()">Refresh</button>
 
-        .actions button {
-            margin-right: 5px;
-        }
-	</style>
-</head>
-<body>
+        <hr />
 
-	<!-- Header (kept simple, compatible with your existing one) -->
-	<h1>My Contacts</h1>
+        <!-- Add Contact -->
+        <h3>Add Contact</h3>
+        <input id="first_name" placeholder="First name" />
+        <input id="last_name" placeholder="Last name" />
+        <input id="phone" placeholder="Phone" />
+        <input id="email" placeholder="Email" />
+        <br />
+        <button onclick="addContact()">Add</button>
 
-	<!-- Search -->
-	<input
-			type="text"
-			id="search"
-			placeholder="Search contacts..."
-			oninput="loadContacts()"
-	/>
+        <hr />
 
-	<button onclick="loadContacts()">Refresh</button>
+        <!-- Contacts List -->
+        <div id="contacts"></div>
 
-	<hr />
-
-	<!-- Add Contact -->
-	<h3>Add Contact</h3>
-	<input id="first_name" placeholder="First name" />
-	<input id="last_name" placeholder="Last name" />
-	<input id="phone" placeholder="Phone" />
-	<input id="email" placeholder="Email" />
-	<br />
-	<button onclick="addContact()">Add</button>
-
-	<hr />
-
-	<!-- Contacts List -->
-	<div id="contacts"></div>
-
-	<script src="scripts/contacts.js"></script>
-</body>
+        <script src="scripts/contacts.js"></script>
+    </body>
 </html>
