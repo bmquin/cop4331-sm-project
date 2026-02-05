@@ -6,19 +6,15 @@ require __DIR__ . '/_utils/api.php';
 require __DIR__ . '/_utils/session.php';
 require __DIR__ . '/../vendor/autoload.php';
 
-/*--------------------------
-    Session and user check
-  --------------------------*/
+/*-----------------
+    Session check
+  -----------------*/
 
 if (!is_logged_in()) {
   send_error("Not logged in", 401);
 }
 
 $user_id = session_user_id();
-$target_id = explode("/", get_uri())[3];
-if ($user_id != $target_id) {
-    send_error("Invalid permissions", 401);
-}
 
 /*-------------------------
     Validate request body
