@@ -24,6 +24,18 @@ function check_user_exists(mysqli $db, int $user_id)
   return $result->num_rows > 0;
 }
 
+# Find user by username and hashed_password
+function find_user_for_login(mysqli $db, string $username, string $hashed_password)
+{
+  $statement = $db->prepare("select id from users where username = ? AND password_hash = ?");
+  $statement->bind_param("is", $username, $hashed_password);
+  $statement->execute();
+
+  $result = $statement->get_result();
+
+  return $result->fetch_assoc();
+}
+
 # Check if user with email already exists
 function unique_email(mysqli $db, string $email)
 {
@@ -65,7 +77,7 @@ function create_user(mysqli $db, string $username, string $email, string $hashed
      Contact Database Utility
    ---------------------------- */
 
-function check_contact_exists(mysqli $db, int $contact_id) 
+function check_contact_exists(mysqli $db, int $contact_id)
 {
   $statement = $db->prepare("SELECT id FROM contacts WHERE id = ? LIMIT 1");
   $statement->bind_param("i", $contact_id);
@@ -76,7 +88,7 @@ function check_contact_exists(mysqli $db, int $contact_id)
   return $result->num_rows > 0;
 }
 
-function add_contact(mysqli $db, int $user_id, string $first_name, string $last_name, string $phone, string $email) 
+function add_contact(mysqli $db, int $user_id, string $first_name, string $last_name, string $phone, string $email)
 {
   $statement = $db->prepare("INSERT INTO contacts (user_id, first_name, last_name, phone, email) VALUES (?, ?, ?, ?, ?)");
   $statement->bind_param("issss", $user_id, $first_name, $last_name, $phone, $email);
@@ -96,11 +108,11 @@ function remove_contact(mysqli $db, int $user_id, int $contact_id)
 {
   $statement = $db->prepare("DELETE FROM contacts WHERE id = ? AND user_id = ?");
   $statement->bind_param("ii", $contact_id, $user_id);
-  
+
   return (bool) $statement->execute();
 }
 
-function get_contacts(mysqli $db, int $user_id) 
+function get_contacts(mysqli $db, int $user_id)
 {
   $statement = $db->prepare("SELECT * FROM contacts WHERE user_id = ?");
   $statement->bind_param("i", $user_id);
