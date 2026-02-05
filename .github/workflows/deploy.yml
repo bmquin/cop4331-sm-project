@@ -1,0 +1,27 @@
+name: Deploy to Virtual Private Server
+
+on:
+  #push:
+  #  branches: [ "main" ]
+  #pull_request:
+  #  branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+          echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+          
+      - name: Upload files
+        run: |
+          scp -r ${{ github.workspace }}/* ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/contact_manager
