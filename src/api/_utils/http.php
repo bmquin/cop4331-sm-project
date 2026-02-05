@@ -1,12 +1,17 @@
 <?php
 
-/* --------------------------
-     Client Request Utility
-   -------------------------- */
+#--------------------------
+#  Client Request Utility
+#--------------------------
 
 function get_request_method() 
 {
   return $_SERVER['REQUEST_METHOD'];
+}
+
+function get_uri() 
+{
+  return $_SERVER['REQUEST_URI'];
 }
 
 function get_body() 
@@ -24,9 +29,9 @@ function get_json_body()
   }
 }
 
-/* ---------------------------
-     Server Response Utility
-   --------------------------- */
+#---------------------------
+#  Server Response Utility
+#---------------------------
 
 function send_json(object|array $body) 
 {
