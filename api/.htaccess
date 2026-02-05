@@ -1,5 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    # TODO: include rewrite rules for contact signup, login, and contact search
-    RewriteRule users/(\d+)/contacts contacts.php
+    # TODO: include rewrite rules for contact login and contact search
+    RewriteRule users/contacts contacts.php
+    RewriteRule signup user/signup.php
 </IfModule>
