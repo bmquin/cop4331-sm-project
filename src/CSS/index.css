@@ -12,7 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url("../images/backgroundPictures/landingPageBG.jpg") no-repeat;
+    background: url("../images/backgroundPictures/night_train.gif") no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -75,25 +75,208 @@ header {
     transform-origin: left;
 }
 
-/* ================= Text ================= */
+/* ================= auth-modal ================= */
 
-.mainStuff {
+.auth-modal {
     position: relative;
-    width: 800px;
-    height: 600px;
+    width: 400px;
+    height: 400px;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     backdrop-filter: blur(30px);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    text-align: center;
     align-items: center;
-    font-size: 1.1em;
+
+    overflow: hidden;
+    transform: scale(1);
+
+    transition: height 0.2s ease;
 }
 
-.mainStuff .navigation{
-    padding: 20px;
+.auth-modal.active {
+    height: 570px;
+}
+
+.auth-modal .form-box {
+    width: 100%;
+    padding: 40px;
+}
+
+.auth-modal .form-box.login {
+    transition: transform 0.18s ease;
+    transform: translateX(0);
+}
+
+.auth-modal.active .form-box.login {
+    transform: translateX(-400px);
+}
+
+.auth-modal .form-box.register {
+    position: absolute;
+    transform: translateX(400px);
+}
+
+.auth-modal.active .form-box.register {
+    transition: transform 0.18s ease;
+    transform: translateX(0);
+}
+
+.form-box h2 {
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
+}
+
+/* ================= INPUTS ================= */
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid #fff;
+    margin: 30px 0;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #fff;
+    font-weight: 500;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+    top: -5px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 600;
+    padding: 0 40px 0 5px;
+}
+
+/* ================= ICON BASE ================= */
+
+ion-icon {
+    color: #fff;
+    font-size: 22px;
+}
+
+.input-box .icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+}
+
+/* ================= BUTTON ================= */
+
+.btn {
+    width: 100%;
+    height: 45px;
+    background: #000;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 500;
+}
+
+/* ================= REGISTER ================= */
+
+.login-register {
+    font-size: 0.9em;
+    color: #fff;
+    text-align: center;
+    font-weight: 500;
+    margin: 25px 0 10px;
+}
+
+.login-register p a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-register p a:hover {
+    text-decoration: underline;
+}
+
+/* ================= ALERT BOX ================= */
+
+.alert-box {
+    position: fixed;
+    inset: 0;
+    top: 35px;
+    margin: 0 auto;
+    width: 350px;
+    height: 70px;
+    background: transparent;
+    backdrop-filter: blur(50px);
+    border-radius: 6px;
+    padding: 0 15px;
+    z-index: 100;
+    overflow: hidden;
+    transform: translateY(calc(-100% - 35px));
+    transition: .4s ease;
+}
+
+.alert-box.show{
+    transform: translateY(0);
+}
+
+.alert {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: white;
+    font-weight: 500;
+}
+
+.alert::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: #0abf31;
+    animation: progress 3s linear forwards;
+}
+
+.alert.error::after {
+    background: red;
+}
+
+@keyframes progress{
+    100%{
+        width:0;
+    }
+}
+
+.alert i {
+    font-size: 35px;
+    color: #0abf31;
+    margin-right: 8px;
+}
+
+.alert.error i {
+    color: red;
 }
