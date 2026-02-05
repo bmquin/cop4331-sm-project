@@ -12,9 +12,6 @@ loginLink.addEventListener("click", () => {
   authModal.classList.remove("active");
 });
 
-if (loginBtnModal)
-  loginBtnModal: addEventListener("click", () => authModal.classList("show"));
-
 setTimeout(() => alertBox.classList.add("show"), 50);
 
 setTimeout(() => {
