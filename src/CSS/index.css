@@ -242,6 +242,9 @@ ion-icon {
     overflow: hidden;
     transform: translateY(calc(-100% - 35px));
     transition: 0.4s ease;
+    
+    left: 0;
+    right: 0;
 }
 
 .alert-box.show {
@@ -283,6 +286,6 @@ ion-icon {
     margin-right: 8px;
 }
 
-.alert.error i {
+.alert.error ion-icon {
     color: red;
 }

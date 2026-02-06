@@ -2,8 +2,6 @@ const authModal = document.querySelector(".auth-modal");
 const loginLink = document.querySelector(".login-link");
 const registerLink = document.querySelector(".register-link");
 
-const alertBox = document.querySelector(".alert-box");
-
 const loginForm = document.getElementById("login-form");
 const signupForm = document.getElementById("signup-form");
 
@@ -15,15 +13,33 @@ loginLink.addEventListener("click", () => {
   authModal.classList.remove("active");
 });
 
-setTimeout(() => alertBox.classList.add("show"), 50);
+function showAlert(message, type = "success", icon = "checkmark-outline") {
+  const template = document.getElementById("alert-template");
+  const clone = template.content.cloneNode(true);
 
-setTimeout(() => {
-  alertBox.classList.remove('show');
-  setTimeout(() => alertBox.remove(), 500)
-}, 3000);
+  const alertBox = clone.querySelector(".alert-box");
+  const alert = clone.querySelector(".alert");
+  const text = clone.querySelector("span");
+  const iconEl = clone.querySelector("ion-icon");
+
+  alert.classList.add(type);
+  text.textContent = message;
+  iconEl.setAttribute("name", icon);
+
+  document.body.appendChild(clone);
+
+  const insertedAlertBox = document.body.lastElementChild;
+
+  setTimeout(() => insertedAlertBox.classList.add("show"), 50);
+
+  setTimeout(() => {
+    insertedAlertBox.classList.remove("show");
+    setTimeout(() => insertedAlertBox.remove(), 400);
+  }, 3000);
+}
 
 /* Signup functionality */
-signupForm.addEventListener('submit', async (event) => {
+signupForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const formData = new FormData(event.target);
@@ -32,20 +48,20 @@ signupForm.addEventListener('submit', async (event) => {
   try {
     const request = await fetch(url, {
       method: "POST",
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: new URLSearchParams(formData)
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData),
     });
 
     if (request.ok) {
-      console.log("Successfully created new account");
+      showAlert("Account created", "success", "checkmark-outline");
     }
   } catch (e) {
-    console.error("Error creating an acconut:", e);
+    showAlert("Try again", "error", "close-outline");
   }
-})
+});
 
 /* Login functionality */
-loginForm.addEventListener('submit', async (event) => {
+loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const formData = new FormData(event.target);
@@ -54,15 +70,15 @@ loginForm.addEventListener('submit', async (event) => {
   try {
     const request = await fetch(url, {
       method: "POST",
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: new URLSearchParams(formData)
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData),
     });
 
     if (request.ok) {
-      console.log("Successfully logged in");
-      window.location.href = '/contacts.html';
+      showAlert("Login successful", "success", "checkmark-outline");
+      window.location.href = "/contacts.html";
     }
   } catch (e) {
-    console.error("Error logging in:", e);
+    showAlert("Incorrect credentials", "error", "close-outline")
   }
-})
+});
