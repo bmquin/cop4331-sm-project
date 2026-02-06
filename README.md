@@ -15,7 +15,7 @@ Link to our website: https://copycm.com/
 
 # Authors
 - Adam Betinsky
-- Andrew
+- Andrew Reyes
 - Benjamin Quintero
 - Darren Squires Jr
 - Noah Gerard
