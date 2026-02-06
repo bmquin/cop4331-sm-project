@@ -24,16 +24,22 @@ function check_user_exists(mysqli $db, int $user_id)
   return $result->num_rows > 0;
 }
 
-# Find user by username and hashed_password
-function find_user_for_login(mysqli $db, string $username, string $hashed_password)
+# Find user by username and password 
+function find_user_for_login(mysqli $db, string $username, string $password)
 {
-  $statement = $db->prepare("select id from users where username = ? AND password_hash = ?");
-  $statement->bind_param("is", $username, $hashed_password);
+  $statement = $db->prepare("SELECT id, password_hash FROM users WHERE username = ?");
+  $statement->bind_param("s", $username);
   $statement->execute();
-
   $result = $statement->get_result();
 
-  return $result;
+  if ($user = $result->fetch_assoc()) {
+    error_log(gettype($user));
+    if (password_verify($password, $user["password_hash"])) {
+      return $user;
+    }
+  }
+
+  return false;
 }
 
 # Check if user with email already exists

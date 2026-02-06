@@ -9,7 +9,13 @@ $db_connection = init_db_connection();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
   http_response_code(405);
-  echo "Method not allowed";
+  echo json_encode(["error" => "Method not allowed"]);
+  exit;
+}
+
+if (is_logged_in()) {
+  http_response_code(403);
+  echo json_encode(["error" => "Already logged in"]);
   exit;
 }
 
@@ -17,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 $username = sanitize_input($_POST["username"] ?? "");
 $email = trim($_POST["email"] ?? "");
 $password = sanitize_input($_POST["password"] ?? "");
-$confirm_pw = sanitize_input($_POST["cpassword"] ?? "");
+$confirm_pw = sanitize_input($_POST["confirm-password"] ?? "");
 
 /* Validate inputs */
 if (!validate_username($username)) {
@@ -59,12 +65,13 @@ if (!unique_email($db_connection, $email)) {
 
 /* Create User */
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-$created_usr_id = create_user($db_connection, $username, $email, $hashed_password);
 
-if ($created_usr_id) {
+try {
+  $created_usr_id = create_user($db_connection, $username, $email, $hashed_password);
   session_login($created_usr_id);
   echo json_encode(["message" => "Successfully created a new user"]);
-} else {
+} catch (Throwable $e) {
+  error_log($e->getMessage());
   http_response_code(500);
   echo json_encode(["error" => "Could not create user"]);
 }
