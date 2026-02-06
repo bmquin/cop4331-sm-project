@@ -1,13 +1,10 @@
 <!doctype html>
-
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>COPY - Landing Page</title>
+        <meta charset="UTF-8" />
+        <title>My Contacts</title>
         <link href="CSS/contacts.css" rel="stylesheet" />
     </head>
-
     <body>
         <header>
             <h1 class="logo">My Contacts</h1>
@@ -16,31 +13,71 @@
             </nav>
         </header>
 
-        <input
-            type="text"
-            id="search"
-            placeholder="Search contacts..."
-            oninput="loadContacts()"
-        />
+        <div class="card">
+            <h3>Add Contact</h3>
 
-        <button onclick="loadContacts()">Refresh</button>
+            <form method="POST" action="#">
+                <label for="name">Name</label>
+                <input
+                    required
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Barack Obama"
+                />
 
-        <hr />
+                <label for="email">Email</label>
+                <input
+                    required
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="meme@example.com"
+                />
 
-        <!-- Add Contact -->
-        <h3>Add Contact</h3>
-        <input id="first_name" placeholder="First name" />
-        <input id="last_name" placeholder="Last name" />
-        <input id="phone" placeholder="Phone" />
-        <input id="email" placeholder="Email" />
-        <br />
-        <button onclick="addContact()">Add</button>
+                <label for="phone">Phone</label>
+                <input
+                    required
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="(420) 969-6767"
+                />
 
-        <hr />
+                <button type="submit">Save Contact</button>
+            </form>
+        </div>
 
-        <!-- Contacts List -->
-        <div id="contacts"></div>
+        <div class="card">
+            <h3>Contacts</h3>
 
-        <script src="scripts/contacts.js"></script>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bingus Bongus</td>
+                        <td>bing@bong.com</td>
+                        <td>(123) 456-7890</td>
+                        <td class="actions">
+                            <form method="POST" action="#">
+                                <button type="submit">Edit</button>
+                            </form>
+                            <form method="POST" action="#">
+                                <button class="delete" type="submit">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </body>
 </html>
