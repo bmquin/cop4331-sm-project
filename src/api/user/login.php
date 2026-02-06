@@ -9,7 +9,13 @@ $db_connection = init_db_connection();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
   http_response_code(405);
-  echo "Method not allowed";
+  echo json_encode(["error" => "Method not allowed"]);
+  exit;
+}
+
+if (is_logged_in()) {
+  http_response_code(403);
+  echo json_encode(["error" => "Already logged in"]);
   exit;
 }
 
@@ -31,14 +37,14 @@ if (!validate_password($password)) {
 }
 
 /* Login User */
-$hashed_password = password_hash($password, PASSWORD_DEFAULT);
-$user = find_user_for_login($db_connection, $username, $hashed_password);
+try {
+  $user = find_user_for_login($db_connection, $username, $password);
 
-if ($user) {
-  $user_result = $user->fetch_assoc();
-  session_login($user_result["id"]);
+  session_login($user["id"]);
+
   echo json_encode(["message" => "Login successful"]);
-} else {
+} catch (Throwable $e) {
+  error_log($e->getMessage());
   http_response_code(500);
   echo json_encode(["error" => "Could not login user"]);
 }

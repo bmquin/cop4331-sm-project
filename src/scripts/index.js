@@ -4,6 +4,9 @@ const registerLink = document.querySelector(".register-link");
 
 const alertBox = document.querySelector(".alert-box");
 
+const loginForm = document.getElementById("login-form");
+const signupForm = document.getElementById("signup-form");
+
 registerLink.addEventListener("click", () => {
   authModal.classList.add("active");
 });
@@ -20,25 +23,17 @@ setTimeout(() => {
 }, 3000);
 
 /* Signup functionality */
-const signupForm = document.getElementById("signup-form");
 signupForm.addEventListener('submit', async (event) => {
   event.preventDefault();
 
   const formData = new FormData(event.target);
   const url = "/api/user/signup.php";
 
-  // Build payload from form data 
-  const payload = {
-    username: formData.get("username"),
-    email: formData.get("email"),
-    password: formData.get("password"),
-    cpassword: formData.get("confirm-password"),
-  }
-
   try {
     const request = await fetch(url, {
       method: "POST",
-      body: JSON.stringify(payload)
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      body: new URLSearchParams(formData)
     });
 
     if (request.ok) {
@@ -46,5 +41,28 @@ signupForm.addEventListener('submit', async (event) => {
     }
   } catch (e) {
     console.error("Error creating an acconut:", e);
+  }
+})
+
+/* Login functionality */
+loginForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(event.target);
+  const url = "/api/user/login.php";
+
+  try {
+    const request = await fetch(url, {
+      method: "POST",
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      body: new URLSearchParams(formData)
+    });
+
+    if (request.ok) {
+      console.log("Successfully logged in");
+      window.location.href = '/contacts.html';
+    }
+  } catch (e) {
+    console.error("Error logging in:", e);
   }
 })
