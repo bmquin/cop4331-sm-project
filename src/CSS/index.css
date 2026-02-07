@@ -12,7 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url("../images/backgroundPictures/night_train.gif") no-repeat;
+    background: url("../images/backgroundPictures/darkSkies.jpeg") no-repeat;
     background-size: cover;
     background-position: center;
 }
