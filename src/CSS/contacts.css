@@ -143,3 +143,20 @@ th {
 .actions button:hover {
     opacity: 0.9;
 }
+
+/* First + Last Name row */
+.name-row {
+    display: flex;
+    gap: 12px;
+}
+
+.field {
+    flex: 1;
+}
+
+/* Mobile fallback */
+@media (max-width: 600px) {
+    .name-row {
+        flex-direction: column;
+    }
+}

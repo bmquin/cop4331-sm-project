@@ -45,7 +45,7 @@ async function addContact() {
         return;
     }
 
-    await fetch(`/api/users/contacts`, {
+    await fetch(`/api/contacts.php`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -68,7 +68,7 @@ async function addContact() {
 async function deleteContact(id) {
     if (!confirm("Delete this contact?")) return;
 
-    await fetch(`/api/users/contacts`, {
+    await fetch(`/api/contacts.php`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ contact_id: id })
@@ -85,7 +85,7 @@ async function editContact(id, first, last, phone, email) {
 
     if (!newFirst || !newLast) return;
 
-    await fetch(`/api/users/contacts`, {
+    await fetch(`/api/contacts.php`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
