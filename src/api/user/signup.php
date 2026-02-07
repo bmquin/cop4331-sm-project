@@ -79,6 +79,8 @@ try {
         "success" => true,
         "message" => "Successfully created a new user",
     ]);
+    // Added this so the user has to login again right after signing up
+    session_logout();
 } catch (Throwable $e) {
     error_log($e->getMessage());
     http_response_code(500);
