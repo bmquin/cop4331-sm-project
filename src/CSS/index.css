@@ -12,7 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url("../images/backgroundPictures/burntbread.jpg") no-repeat;
+    background: url("../images/backgroundPictures/night_train.gif") no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -242,7 +242,7 @@ ion-icon {
     overflow: hidden;
     transform: translateY(calc(-100% - 35px));
     transition: 0.4s ease;
-    
+
     left: 0;
     right: 0;
 }
