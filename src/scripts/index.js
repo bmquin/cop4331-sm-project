@@ -82,7 +82,7 @@ loginForm.addEventListener("submit", async (event) => {
     if (data.success) {
       showAlert("Account created", "success", "checkmark-outline");
       setTimeout(function() {
-          window.location.href = "https://www.example.com/new-page.html";
+          window.location.href = "contacts.html";
       }, 500);
     } else {
       showAlert(
