@@ -63,35 +63,33 @@
         </form>
     </div>
 
-        <div class="card">
-            <div class="card">
-                <h3>Contacts</h3>
+    <div class="card">
+        <h3>Contacts</h3>
 
-                <input
-                        id="search"
-                        type="text"
-                        placeholder="Search for Contacts..."
-                        onkeyup="loadContacts()"
-                />
+        <input
+                id="search"
+                type="text"
+                placeholder="Search for Contacts..."
+                onkeyup="loadContacts()"
+        />
 
-                <div id="contacts"></div>
-            </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
 
-
-           <table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody id="contacts">
+            <!-- IMPORTANT: ONLY THIS gets id="contacts" -->
+            <tbody id="contacts">
+            <!-- JS inserts <tr> rows here -->
             </tbody>
-            </table>
+        </table>
+    </div>
 
-        </div>
-        <script src="/scripts/contacts.js"></script>
-    </body>
+    <script src="/scripts/contacts.js"></script>
+</body>
 </html>

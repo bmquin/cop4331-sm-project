@@ -1,43 +1,47 @@
 async function loadContacts() {
     const q = document.getElementById("search").value;
 
-    const res = await fetch(`/api/contacts.php?q=` + encodeURIComponent(q));
+    const res = await fetch(`/api/contacts.php?q=` + encodeURIComponent(q), {
+        credentials: "include"
+    });
+
+    if (!res.ok) {
+        console.error("Failed to load contacts:", res.status);
+        return;
+    }
+
     const data = await res.json();
 
     const container = document.getElementById("contacts");
     container.innerHTML = "";
 
     if (!data.result || data.result.length === 0) {
-        container.innerHTML = "<p>No contacts found.</p>";
+        container.innerHTML = "<tr><td colspan='4'>No contacts found.</td></tr>";
         return;
     }
 
     data.result.forEach(c => {
-        container.innerHTML = "";
+        const row = document.createElement("tr");
 
-        data.result.forEach(c => {
-            const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${c.first_name} ${c.last_name}</td>
+            <td>${c.email ?? ""}</td>
+            <td>${c.phone ?? ""}</td>
+            <td class="actions">
+                <button onclick="editContact(
+                    ${c.id},
+                    '${escapeStr(c.first_name)}',
+                    '${escapeStr(c.last_name)}',
+                    '${escapeStr(c.phone)}',
+                    '${escapeStr(c.email)}'
+                )">Edit</button>
+                <button class="delete" onclick="deleteContact(${c.id})">
+                    Delete
+                </button>
+            </td>
+        `;
 
-            row.innerHTML = `
-        <td>${c.first_name} ${c.last_name}</td>
-        <td>${c.email ?? ""}</td>
-        <td>${c.phone ?? ""}</td>
-        <td class="actions">
-            <button onclick="editContact(
-                ${c.id},
-                '${escapeStr(c.first_name)}',
-                '${escapeStr(c.last_name)}',
-                '${escapeStr(c.phone)}',
-                '${escapeStr(c.email)}'
-            )">Edit</button>
-            <button class="delete" onclick="deleteContact(${c.id})">
-                Delete
-            </button>
-        </td>
-    `;
-
-            container.appendChild(row);
-        });
+        container.appendChild(row);
     });
 }
 
@@ -52,8 +56,9 @@ async function addContact() {
         return;
     }
 
-    await fetch(`/api/contacts.php`, {
+    const res = await fetch(`/api/contacts.php`, {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             first_name: first,
@@ -63,7 +68,11 @@ async function addContact() {
         })
     });
 
-    // Clear inputs
+    if (!res.ok) {
+        console.error("Failed to add contact:", res.status);
+        return;
+    }
+
     document.getElementById("first_name").value = "";
     document.getElementById("last_name").value = "";
     document.getElementById("phone").value = "";
@@ -75,11 +84,17 @@ async function addContact() {
 async function deleteContact(id) {
     if (!confirm("Delete this contact?")) return;
 
-    await fetch(`/api/contacts.php`, {
+    const res = await fetch(`/api/contacts.php`, {
         method: "DELETE",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ contact_id: id })
     });
+
+    if (!res.ok) {
+        console.error("Failed to delete contact:", res.status);
+        return;
+    }
 
     loadContacts();
 }
@@ -92,8 +107,9 @@ async function editContact(id, first, last, phone, email) {
 
     if (!newFirst || !newLast) return;
 
-    await fetch(`/api/contacts.php`, {
+    const res = await fetch(`/api/contacts.php`, {
         method: "PUT",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             contact_id: id,
@@ -104,6 +120,11 @@ async function editContact(id, first, last, phone, email) {
         })
     });
 
+    if (!res.ok) {
+        console.error("Failed to update contact:", res.status);
+        return;
+    }
+
     loadContacts();
 }
 
@@ -113,5 +134,5 @@ function escapeStr(str) {
     return str.replace(/'/g, "\\'");
 }
 
-// Load on page open
+// Load contacts on page load (after login)
 loadContacts();

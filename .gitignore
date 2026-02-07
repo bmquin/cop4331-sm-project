@@ -1,2 +1,5 @@
 /vendor/
 .env
+
+# Local dev-only login helper
+src/api/dev_login.php
