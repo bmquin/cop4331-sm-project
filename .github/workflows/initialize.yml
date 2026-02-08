@@ -1,11 +1,6 @@
-name: Deploy to Virtual Private Server
+name: Initilize Files Onto Virtual Private Server
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
   workflow_dispatch:
 
 jobs:
@@ -20,10 +15,9 @@ jobs:
 
           echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
           
-      - name: Git Pull
+      - name: Upload files
         run: |
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
-            cd /var/www/contact_manager && \
-            git pull origin main && \
-            composer install
+            rm -rf /var/www/contact_manager && \
+            git clone ${{ github.server_url }}/${{ github.repository }}.git /var/www/contact_manager
           "
