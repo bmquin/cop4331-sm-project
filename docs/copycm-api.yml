@@ -1,0 +1,362 @@
+swagger: '2.0'
+info:
+  description: This is the API documentaiton for the COP-4331 Small Project Contact Manager App
+  version: 1.0.0
+  title: Contact Manager App [Draft]
+  contact:
+    email: an130962@ucf.edu; noahsemail@ucf.edu
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+host: copycm.com
+basePath: /api
+schemes:
+- http
+
+tags:
+- name: authentication
+  description:  Operations for user authentication
+- name: contacts
+  description: Operations for contact management
+
+paths:
+
+  /signup:
+    post:
+      tags:
+      - authentication
+      summary: registers an account
+      operationId: signup
+      description: Registers an account with the given credentials
+      parameters:
+      - in: body
+        name: accountCredentials
+        description: Credentials of new account
+        schema:
+          type: object
+          properties:
+            username:
+              type: string
+            email:
+              type: string
+            password:
+              type: string
+            confirm-password:
+              type: string
+          example: {username: "ILoveCOPYSoMuch", email: "COPYIsTheBest@gmail.com", password: "EveryoneShouldUseCOPY", confirm-password: "EveryoneShouldUseCOPY"}
+      responses:
+        200:
+          description: OK
+          schema:
+              $ref: "#/definitions/Success"
+        400:
+          description: Invalid Input
+          schema:
+              $ref: "#/definitions/Error"
+        403:
+          description: Already Logged In
+          schema:
+              $ref: "#/definitions/Error"
+        405:
+          description: Method Not Allowed
+          schema:
+              $ref: "#/definitions/Error"
+        409:
+          description: Credentials Already Taken
+          schema:
+              $ref: "#/definitions/Error"
+        500:
+          description: Internal Server Error
+          schema:
+              $ref: "#/definitions/Error"
+
+  /login:
+    post:
+      tags:
+      - authentication
+      summary: logs user into account
+      operationId: login
+      description: Attempts to log user into account with the given credentials
+      parameters:
+      - in: body
+        name: accountCredentials
+        description: Credentials of existing account
+        schema:
+          type: object
+          properties:
+            username:
+              type: string
+            password:
+              type: string
+          example: {username: "ILoveCOPYSoMuch", password: "EveryoneShouldUseCOPY"}
+      responses:
+        400:
+          description: Invalid Input
+          schema:
+              $ref: "#/definitions/Error"
+        401:
+          description: Incorrect Credentials
+          schema:
+              $ref: "#/definitions/Error"
+        403:
+          description: Already Logged In
+          schema:
+              $ref: "#/definitions/Error"
+        405:
+          description: Method Not Allowed
+          schema:
+              $ref: "#/definitions/Error"
+        500:
+          description: Internal Server Error
+          schema:
+              $ref: "#/definitions/Error"
+
+  /logout:
+    post:
+      tags:
+      - authentication
+      summary: logs user out of account
+      operationId: logout
+      description: Logs the user out of their current account if they are logged in
+      parameters:
+      - in: header
+        name: Cookie
+        required: false
+        type: string
+        description: Cookie session information
+      responses:
+        200:
+          description: OK
+        405:
+          description: Method Not Allowed
+
+  /users/contacts/search:
+    get:
+      tags:
+      - contacts
+      summary: TODO
+
+  /users/contacts:
+
+    get:
+      tags:
+      - contacts
+      summary: returns a list of contacts of current session user
+      operationId: getContacts
+      description: Returns a list of all the current session user's contacts
+      produces:
+      - application/json
+      parameters:
+        - in: header
+          name: Cookie
+          required: true
+          type: string
+          description: Cookie session information
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              results:
+                type: array
+                items:
+                  $ref: "#/definitions/Contact"
+          examples:
+            application/json:
+              success: true
+              results:
+              - id: 0
+                first_name: Delicious
+                last_name: Bread
+                email: deliciousbread@gmail.com
+                phone: 012-345-6789
+              - id: 1
+                first_name: Place
+                last_name: Holder
+                email: placeholer@gmail.com
+                phone: 987-654-3210
+        400:
+          description: Invalid Input
+          schema:
+              $ref: "#/definitions/Error"
+        401:
+          description: Invalid Session
+          schema:
+              $ref: "#/definitions/Error"
+        500:
+          description: Internal Server Error
+          schema:
+              $ref: "#/definitions/Error"
+
+    post:
+      tags:
+      - contacts
+      summary: adds contact to current session user
+      operationId: addContact
+      description: Adds the given contact information to the current session user
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: header
+        name: Cookie
+        required: true
+        type: string
+        description: Cookie session information
+      - in: body
+        name: contactInfo
+        description: Information of new contact
+        schema:
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            phone:
+              type: string
+          example: {first_name: "Joe", last_name: "Biden", email: "iamjoebiden@gmail.com", phone: "012-345-6789"}
+
+      responses:
+        200:
+          description: OK
+          schema:
+              $ref: "#/definitions/Success"
+        400:
+          description: Invalid Input
+          schema:
+              $ref: "#/definitions/Error"
+        401:
+          description: Invalid Session
+          schema:
+              $ref: "#/definitions/Error"
+        500:
+          description: Internal Server Error
+          schema:
+              $ref: "#/definitions/Error"
+
+    put:
+      tags:
+      - contacts
+      summary: modifies contact of given user
+      operationId: modifyContact
+      description: Modifies the given contact id of the current session user with the given contact information
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: header
+        name: Cookie
+        required: true
+        type: string
+        description: Cookie session information
+
+      - in: body
+        name: contactInfo
+        description: Information of new contact
+        schema:
+          allOf:
+          - $ref: "#/definitions/Contact"
+          - example: {id: 3, first_name: "NewFirst", last_name: "NewLast", email: "newgmail@gmail.com", phone: "111-111-1111"}
+
+      responses:
+        200:
+          description: OK
+          schema:
+              $ref: "#/definitions/Success"
+        400:
+          description: Invalid Input
+          schema:
+              $ref: "#/definitions/Error"
+        401:
+          description: Invalid Session
+          schema:
+              $ref: "#/definitions/Error"
+        500:
+          description: Internal Server Error
+          schema:
+              $ref: "#/definitions/Error"
+
+    delete:
+      tags:
+      - contacts
+      summary: removes contact from current session user
+      operationId: deleteContact
+      description: Removes the given contact id from the current session user
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: header
+        name: Cookie
+        required: true
+        type: string
+        description: Cookie session information
+
+      - in: body
+        name: contactId
+        description: ID of the target contact
+        schema:
+          type: integer
+          example: {contact_id: 0}
+
+      responses:
+        200:
+          description: OK
+          schema:
+              $ref: "#/definitions/Success"
+        400:
+          description: Invalid Input
+          schema:
+              $ref: "#/definitions/Error"
+        401:
+          description: Invalid Session
+          schema:
+              $ref: "#/definitions/Error"
+        500:
+          description: Internal Server Error
+          schema:
+              $ref: "#/definitions/Error"
+
+definitions:
+  Contact:
+    type: object
+    properties:
+      id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+  Success:
+    type: object
+    properties:
+      success:
+        type: boolean
+        example: true
+      message:
+        type: string
+        example: "%success-message%"
+  Error:
+    type: object
+    properties:
+      success:
+        type: boolean
+        example: false
+      error:
+        type: string
+        example: "%error-message%"
