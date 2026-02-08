@@ -19,6 +19,9 @@ $user_id = session_user_id();
     Validate request body
   -------------------------*/
 
+$q = $_GET['q'] ?? '';
+$q = sanitize_input($q);
+
 $data = get_json_body();
 if (get_request_method() !== 'GET' && $data === null) {
   send_error("Invalid data format", 400);
@@ -119,11 +122,15 @@ else if (get_request_method() === 'DELETE') {
 
 else if (get_request_method() === 'GET') {
 
-  $contacts = get_contacts($db_connection, $user_id);
+  $q = $_GET['q'] ?? '';
+  $q = sanitize_input($q);
+
+  $contacts = get_contacts($db_connection, $user_id, $q);
   $db_connection->close();
 
   send_result($contacts);
 }
+
 
 else {
 

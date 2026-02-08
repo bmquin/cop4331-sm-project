@@ -136,3 +136,6 @@ function escapeStr(str) {
 
 // Load contacts on page load (after login)
 loadContacts();
+
+
+

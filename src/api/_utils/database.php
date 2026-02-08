@@ -118,14 +118,36 @@ function remove_contact(mysqli $db, int $user_id, int $contact_id)
   return (bool) $statement->execute();
 }
 
-function get_contacts(mysqli $db, int $user_id)
-{
-  $statement = $db->prepare("SELECT * FROM contacts WHERE user_id = ?");
-  $statement->bind_param("i", $user_id);
-  $statement->execute();
+function get_contacts($db, $user_id, $q = '') {
 
-  $result = $statement->get_result();
-  $contacts = $result->fetch_all(MYSQLI_ASSOC);
+    if ($q === '') {
+        $stmt = $db->prepare("
+            SELECT id, first_name, last_name, phone, email
+            FROM contacts
+            WHERE user_id = ?
+            ORDER BY last_name, first_name
+        ");
+        $stmt->bind_param("i", $user_id);
+    } else {
+        $search = "%" . $q . "%";
+        $stmt = $db->prepare("
+            SELECT id, first_name, last_name, phone, email
+            FROM contacts
+            WHERE user_id = ?
+              AND (
+                first_name LIKE ?
+                OR last_name LIKE ?
+                OR phone LIKE ?
+                OR email LIKE ?
+              )
+            ORDER BY last_name, first_name
+        ");
+        $stmt->bind_param("issss", $user_id, $search, $search, $search, $search);
+    }
 
-  return $contacts;
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    return $result->fetch_all(MYSQLI_ASSOC);
 }
+
