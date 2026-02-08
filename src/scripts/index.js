@@ -79,8 +79,8 @@ loginForm.addEventListener("submit", async (event) => {
 
     const data = await request.json();
 
-    if (data.success) {
-      showAlert("Account created", "success", "checkmark-outline");
+    if (data.success || data.message == "Already logged in") {
+      showAlert("Authenticated", "success", "checkmark-outline");
       setTimeout(function() {
           window.location.href = "contacts.html";
       }, 500);
