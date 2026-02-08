@@ -12,8 +12,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
       - name: Setup SSH Key
         run: |
           mkdir -p ~/.ssh
@@ -24,4 +22,5 @@ jobs:
           
       - name: Upload files
         run: |
-          scp -r ${{ github.workspace }}/* ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/contact_manager
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "rm -rf /var/www/contact_manager"
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "git clone ${{ github.repositoryUrl }} /var/www/contact_manager"
