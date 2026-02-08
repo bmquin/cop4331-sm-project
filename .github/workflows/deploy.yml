@@ -23,4 +23,4 @@ jobs:
       - name: Upload files
         run: |
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "rm -rf /var/www/contact_manager"
-          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "git clone ${{ github.repositoryUrl }} /var/www/contact_manager"
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "git clone ${{ github.server_url }}/${{ github.repository }}.git /var/www/contact_manager"
