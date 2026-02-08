@@ -24,7 +24,7 @@ function showAlert(message, type = "success", icon = "checkmark-outline") {
 
   alert.classList.add(type);
   text.textContent = message;
-  iconEl.setAttribute("name", icon)
+  iconEl.setAttribute("name", icon);
 
   document.body.appendChild(clone);
 
@@ -79,10 +79,10 @@ loginForm.addEventListener("submit", async (event) => {
 
     const data = await request.json();
 
-    if (data.success || data.message == "Already logged in") {
+    if (data.success || data.error == "Already logged in") {
       showAlert("Authenticated", "success", "checkmark-outline");
-      setTimeout(function() {
-          window.location.href = "contacts.html";
+      setTimeout(function () {
+        window.location.href = "contacts.html";
       }, 500);
     } else {
       showAlert(
