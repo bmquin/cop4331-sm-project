@@ -48,6 +48,7 @@ signupForm.addEventListener("submit", async (event) => {
   try {
     const request = await fetch(url, {
       method: "POST",
+      credentials: "include",
       body: new URLSearchParams(formData),
     });
 
@@ -74,6 +75,7 @@ loginForm.addEventListener("submit", async (event) => {
   try {
     const request = await fetch(url, {
       method: "POST",
+      credentials: "include",
       body: new URLSearchParams(formData),
     });
 
