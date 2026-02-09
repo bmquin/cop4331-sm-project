@@ -13,7 +13,7 @@ info:
 host: copycm.com
 basePath: /api
 schemes:
-- http
+- https
 
 tags:
 - name: authentication
@@ -45,6 +45,7 @@ paths:
               type: string
             confirm-password:
               type: string
+
           example: {username: "ILoveCOPYSoMuch", email: "COPYIsTheBest@gmail.com", password: "EveryoneShouldUseCOPY", confirm-password: "EveryoneShouldUseCOPY"}
       responses:
         200:
@@ -132,20 +133,14 @@ paths:
         405:
           description: Method Not Allowed
 
-  /users/contacts/search:
-    get:
-      tags:
-      - contacts
-      summary: TODO
-
   /users/contacts:
 
     get:
       tags:
       - contacts
-      summary: returns a list of contacts of current session user
+      summary: returns a list of contacts of current session user with keyword
       operationId: getContacts
-      description: Returns a list of all the current session user's contacts
+      description: Returns a list of all the current session user's contacts that match the given key with partial search
       produces:
       - application/json
       parameters:
@@ -154,6 +149,12 @@ paths:
           required: true
           type: string
           description: Cookie session information
+        - in: query
+          name: q
+          required: false
+          type: string
+          description: Search query keyword
+
       responses:
         200:
           description: OK
@@ -178,7 +179,7 @@ paths:
               - id: 1
                 first_name: Place
                 last_name: Holder
-                email: placeholer@gmail.com
+                email: placeholder@gmail.com
                 phone: 987-654-3210
         400:
           description: Invalid Input
@@ -223,6 +224,8 @@ paths:
               type: string
             phone:
               type: string
+            
+            
           example: {first_name: "Joe", last_name: "Biden", email: "iamjoebiden@gmail.com", phone: "012-345-6789"}
 
       responses:
