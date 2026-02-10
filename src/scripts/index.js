@@ -58,7 +58,7 @@ signupForm.addEventListener("submit", async (event) => {
       showAlert("Account created", "success", "checkmark-outline");
       authModal.classList.remove("active");
     } else {
-      showAlert(data.message || "Signup failed", "error", "close-outline");
+      showAlert(data.error || "Signup failed", "error", "close-outline");
     }
   } catch {
     showAlert("Server error", "error", "close-outline");
