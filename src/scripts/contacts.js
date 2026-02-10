@@ -70,6 +70,8 @@ async function addContact() {
 
   if (!res.ok) {
     console.error("Failed to add contact:", res.status);
+    const data = await res.json();
+    showAlert(data.error || "Contact addition failed", "error", "close-outline");
     return;
   }
 
@@ -79,6 +81,7 @@ async function addContact() {
   document.getElementById("email").value = "";
 
   loadContacts();
+  showAlert("Contact added", "success", "checkmark-outline");
 }
 
 async function deleteContact(id) {
@@ -93,10 +96,13 @@ async function deleteContact(id) {
 
   if (!res.ok) {
     console.error("Failed to delete contact:", res.status);
+    const data = await res.json();
+    showAlert(data.error || "Contact deletion failed", "error", "close-outline");
     return;
   }
 
   loadContacts();
+  showAlert("Contact deleted", "success", "checkmark-outline");
 }
 
 async function editContact(id, first, last, phone, email) {
@@ -122,10 +128,13 @@ async function editContact(id, first, last, phone, email) {
 
   if (!res.ok) {
     console.error("Failed to update contact:", res.status);
+    const data = await res.json();
+    showAlert(data.error || "Contact edit failed", "error", "close-outline");
     return;
   }
 
   loadContacts();
+  showAlert("Contact edited", "success", "checkmark-outline");
 }
 
 // Prevent quote-breaking in inline JS
