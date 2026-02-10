@@ -50,11 +50,6 @@ function validate_legal_name(string $name)
     return false;
   }
 
-  # Check if name only contains letters
-  if (!preg_match("~^[a-zA-Z]+$~", $name)) {
-    return false;
-  }
-
   return true;
 }
 
