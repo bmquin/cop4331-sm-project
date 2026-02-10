@@ -6,6 +6,8 @@ body {
   background-repeat: no-repeat;
 }
 
+/*Add header at the end, don't worry about this now.*/
+
 .mainStuff {
   margin: 50px;
   text-align: left;
