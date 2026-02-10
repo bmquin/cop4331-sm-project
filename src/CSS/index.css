@@ -35,7 +35,7 @@ body {
     align-items: center;
     min-height: 100vh;
     background: url("../images/background/hecHallwayOffices.jpg") no-repeat;
-    background-size: cover;
+    background-size: 150%;
     background-position: center;
 }
 
