@@ -2,7 +2,7 @@
 ### Description
 
 >**COPY** stands for the **C**ontact **O**rganizer for **P**OOSD with **Y**adavally.
->COPY is an implementation of a contact manager for **POOSD (Processes with Object-Oriented Software Development)**, created to satisfy the *Small Project* requirement for the course taught by **Dr. Yadavally** at **The University of Central Florida (UCF)**.
+>COPY is an implementation of a contact manager for **POOSD (Processes with Object-Oriented Software Development - COP 4331C)**, created to satisfy the *Small Project* requirement for the course taught by **Dr. Yadavally** at **The University of Central Florida (UCF) in Orlando, FL**.
 >Designed in the early months of **2026**, COPY was built by a team of **six undergraduate Computer Science students**.
 >COPY provides an easy and intuitive way to manage your personal contact list. The application supports:
 >- Adding new contacts
