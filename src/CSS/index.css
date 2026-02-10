@@ -42,7 +42,7 @@ body {
 
 .logo {
     font-size: 2em;
-    color: grey;
+    color: black;
     user-select: none;
 }
 
@@ -58,7 +58,7 @@ body {
 .navigation a {
     position: relative;
     font-size: 1.1em;
-    color: grey;
+    color: black;
     text-decoration: none;
     font-weight: 500;
     margin-left: 15px;
