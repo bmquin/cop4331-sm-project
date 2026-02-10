@@ -1,25 +1,31 @@
-/*Code written by Adam Betinsky */
-
-body {
+/*Code written by Adam Betinsky, heavily edited by Benjamin Quintero*/
+html {
+  min-height: 100%;
   background-image: url("../images/background/hec-conf-room.jpg");
-  background-size: 100%;
+  background-size: 110%;
+  background-position: center;
   background-repeat: no-repeat;
 }
 
+body {
+  font-family: Arial, sans-serif;
+  max-width: 900px;
+  margin: 100px auto 40px;
+  padding: 0 20px;
+  color: white;
+  background: transparent;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
+
+
 /*Add header at the end, don't worry about this now.*/
-
-.mainStuff {
-  margin: 50px;
-  text-align: left;
-  position: relative;
-  color: green;
-  margin-top: 150px;
-}
-
-.info{
-
-}
-
-.bio{
-
-}
