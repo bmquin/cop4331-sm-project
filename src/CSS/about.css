@@ -1,17 +1,112 @@
-/*Code written by Adam Betinsky */
+/*Code written by Adam Betinsky, heavily edited by Benjamin Quintero*/
+html {
+  min-height: 100%;
 
-body {
-  background-image: url("../images/backgroundPictures/DevelopersPage.jpg");
-  background-size: 100%;
+  background-image: url("../images/background/hec-conf-room.jpg");
+  background-size: cover;
+  background-position: center;
+  background-color: rgb(0,0,0,0.4);
+  background-blend-mode: darken;
   background-repeat: no-repeat;
 }
 
-/*Add header at the end, don't worry about this now.*/
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
 
-.mainStuff {
-  margin: 50px;
-  text-align: left;
-  position: relative;
-  color: white;
-  margin-top: 150px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+
+  z-index: 99;
 }
+
+body {
+  font-family: Arial, sans-serif;
+
+  min-height: 100vh;
+  max-width: 1500px;
+
+  margin: 100px auto 40px;
+  padding: 0 20px;
+  
+  color: white;
+  background: transparent;
+}
+
+main {
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.info-title{
+  justify-content: center;
+  font-size: 3em;
+}
+
+.info{
+  background: rgba(255, 255, 255, 0.18);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+
+  font-size: 1.2em;
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
+
+
+.dev-intro{
+  font-size: 1.2em;
+}
+
+.card {
+  min-width: 700px;
+  max-width: 1000px;
+
+  background: rgba(255, 255, 255, 0.18);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+
+  display: flex;
+  flex-direction: row;
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 18px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+}
+
+.card-img{
+    max-width: auto;
+    max-height: 250px;
+
+    padding: 25px;
+    border-radius: 20px;
+}
+
+.card-text{
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+
+/*Add header at the end, don't worry about this now.*/
