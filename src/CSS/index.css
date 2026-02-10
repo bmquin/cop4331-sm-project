@@ -35,10 +35,9 @@ body {
     align-items: center;
     min-height: 100vh;
     background: url("../images/background/hecHallwayOffices.jpg") no-repeat;
-    background-size: 150%;
+    background-size: cover;
     background-position: center;
 }
-
 
 .logo {
     font-size: 2em;
@@ -110,8 +109,8 @@ body {
 
 .auth-modal {
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: min(400px, 90vw);
+    min-height: 400px;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
@@ -142,12 +141,12 @@ body {
 }
 
 .auth-modal.active .form-box.login {
-    transform: translateX(-400px);
+    transform: translateX(-100%);
 }
 
 .auth-modal .form-box.register {
     position: absolute;
-    transform: translateX(400px);
+    transform: translateX(100%);
 }
 
 .auth-modal.active .form-box.register {
