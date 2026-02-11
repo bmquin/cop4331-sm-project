@@ -4,7 +4,6 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>COPY - My Contacts</title>
-        <link href="CSS/header.css" rel="stylesheet" />
         <link href="CSS/contacts.css" rel="stylesheet" />
     </head>
     <body>
@@ -17,6 +16,7 @@
             <nav class="navigation">
                 <a href="about.html">About us</a>
             </nav>
+            <div class="logout">Log Out</div>
         </section>
 
         <template id="alert-template">
@@ -41,7 +41,7 @@
                             type="text"
                             id="first_name"
                             name="first_name"
-                            placeholder="Barack"
+                            placeholder="Aashish"
                         />
                     </div>
 
@@ -52,7 +52,7 @@
                             type="text"
                             id="last_name"
                             name="last_name"
-                            placeholder="Obama"
+                            placeholder="Yadavally"
                         />
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                     type="email"
                     id="email"
                     name="email"
-                    placeholder="meme@example.com"
+                    placeholder="aashish.yadavally@ucf.edu"
                 />
 
                 <label for="phone">Phone</label>
@@ -106,9 +106,13 @@
                 </tbody>
             </table>
         </div>
-        
+
         <script src="scripts/contacts.js"></script>
         <script src="scripts/clock.js"></script>
         <script src="scripts/messages.js"></script>
+        <script
+            type="module"
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+        ></script>
     </body>
 </html>

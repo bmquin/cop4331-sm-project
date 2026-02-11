@@ -5,7 +5,7 @@ html {
   background-image: url("../images/background/hec-conf-room.jpg");
   background-size: cover;
   background-position: center;
-  background-color: rgb(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.4);
   background-blend-mode: darken;
   background-repeat: no-repeat;
 }
