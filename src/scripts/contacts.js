@@ -1,10 +1,19 @@
+document.getElementById("logout")?.addEventListener("click", async () => {
+  await fetch("../api/logout.php", {
+    method: "POST",
+    credentials: "include",
+  });
+
+  window.location.href = "../index.html";
+});
+
 async function loadContacts() {
   const q = document.getElementById("search").value;
 
   const res = await fetch(`/api/contacts.php?q=` + encodeURIComponent(q), {
     credentials: "include",
   });
-  
+
   if (res.status == 401 || !res.ok) {
     window.location.href = "../index.html";
     return;
@@ -71,7 +80,11 @@ async function addContact() {
   if (!res.ok) {
     console.error("Failed to add contact:", res.status);
     const data = await res.json();
-    showAlert(data.error || "Contact addition failed", "error", "close-outline");
+    showAlert(
+      data.error || "Contact addition failed",
+      "error",
+      "close-outline",
+    );
     return;
   }
 
@@ -97,7 +110,11 @@ async function deleteContact(id) {
   if (!res.ok) {
     console.error("Failed to delete contact:", res.status);
     const data = await res.json();
-    showAlert(data.error || "Contact deletion failed", "error", "close-outline");
+    showAlert(
+      data.error || "Contact deletion failed",
+      "error",
+      "close-outline",
+    );
     return;
   }
 
@@ -145,6 +162,3 @@ function escapeStr(str) {
 
 // Load contacts on page load (after login)
 loadContacts();
-
-
-
