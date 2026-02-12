@@ -12,7 +12,7 @@ async function doLogout(event) {
 async function loadContacts() {
   const q = document.getElementById("search").value;
 
-  const res = await fetch(`/api/contacts.php?q=` + encodeURIComponent(q), {
+  const res = await fetch(`/api/user/contacts.php?q=` + encodeURIComponent(q), {
     credentials: "include",
   });
 
@@ -67,7 +67,7 @@ async function addContact() {
     return;
   }
 
-  const res = await fetch(`/api/contacts.php`, {
+  const res = await fetch(`/api/user/contacts.php`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -107,7 +107,7 @@ async function addContact() {
 async function deleteContact(id) {
   if (!confirm("Delete this contact?")) return;
 
-  const res = await fetch(`/api/contacts.php`, {
+  const res = await fetch(`/api/user/contacts.php`, {
     method: "DELETE",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -137,7 +137,7 @@ async function editContact(id, first, last, phone, email) {
 
   if (!newFirst || !newLast) return;
 
-  const res = await fetch(`/api/contacts.php`, {
+  const res = await fetch(`/api/user/contacts.php`, {
     method: "PUT",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
