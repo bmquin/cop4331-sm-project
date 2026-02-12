@@ -87,6 +87,11 @@ async function addContact() {
       "error",
       "close-outline",
     );
+    if (data.error == "Not logged in") {
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 3000);
+    }
     return;
   }
 
