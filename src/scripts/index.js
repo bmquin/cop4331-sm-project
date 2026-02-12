@@ -1,3 +1,13 @@
+const res = await fetch("api/session.php", {
+  credentials: "include",
+});
+
+const data = await res.json();
+
+if (data.logged_in) {
+  window.location.href = "contacts.html";
+}
+
 const authModal = document.querySelector(".auth-modal");
 const loginLink = document.querySelector(".login-link");
 const registerLink = document.querySelector(".register-link");
