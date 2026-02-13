@@ -206,6 +206,20 @@ input:-webkit-autofill {
     padding: 0 40px 0 5px;
 }
 
+.input-info {
+    overflow: hidden;
+    margin-top: -27px;
+    margin-bottom: 30px;
+    max-height: 0px;
+    transition: max-height 0.2s linear;
+    font-size: 85%;
+    color: #fff
+}
+
+.input-box:focus-within + .input-info {
+    max-height: 40px;
+}
+
 /* ================= ICON BASE ================= */
 
 ion-icon {
