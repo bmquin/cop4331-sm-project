@@ -56,8 +56,8 @@ function validate_legal_name(string $name)
 # Lossly validates phone number
 function validate_phone(string $phone) 
 {
-  # Remove all '-' and ' ' from phone number
-  $phone = preg_replace('~[-\\s]~', '', $phone);
+  # Remove all '-', ' ', '(', and ')' from phone number
+  $phone = preg_replace('~[-\\s()]~', '', $phone);
 
   if (strlen($phone) > 17 || !preg_match("~[0-9]+~", $phone)) {
     return false;

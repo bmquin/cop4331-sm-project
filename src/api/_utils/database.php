@@ -94,6 +94,34 @@ function check_contact_exists(mysqli $db, int $contact_id)
   return $result->num_rows > 0;
 }
 
+function check_contact_email_exists(mysqli $db, int $user_id, string $email) 
+{
+  $statement = $db->prepare("SELECT id FROM contacts WHERE user_id = ? AND email = ? LIMIT 1");
+  $statement->bind_param("is", $user_id, $email);
+  $statement->execute();
+
+  $result = $statement->get_result();
+
+  return $result->num_rows > 0;
+}
+
+function check_phone_number_exists(mysqli $db, int $user_id, string $target_phone) 
+{
+  $statement = $db->prepare("SELECT phone FROM contacts WHERE user_id = ?");
+  $statement->bind_param("i", $user_id);
+  $statement->execute();
+
+  $result = $statement->get_result();
+  $phones = $result->fetch_all(MYSQLI_ASSOC);
+  $phones = array_column($phones, 'phone');
+
+  // remove all characters that aren't digits
+  $target_phone = preg_replace('~\D~', '', $target_phone);
+  $phones = array_map(fn($old) => preg_replace('~\D~', '', $old), $phones);
+
+  return in_array($target_phone, $phones);
+}
+
 function add_contact(mysqli $db, int $user_id, string $first_name, string $last_name, string $phone, string $email)
 {
   $statement = $db->prepare("INSERT INTO contacts (user_id, first_name, last_name, phone, email) VALUES (?, ?, ?, ?, ?)");

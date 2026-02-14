@@ -38,7 +38,7 @@ $phone      = $data['phone']      ?? null;
 $email      = $data['email']      ?? null;
 
 /*-----------------------
-    Sanitize + validate
+    Sanitize + Validate
   -----------------------*/
 
 if (get_request_method() === 'POST' || get_request_method() === 'PUT') {
@@ -67,28 +67,47 @@ if (get_request_method() === 'POST' || get_request_method() === 'PUT') {
 
 $db_connection = init_db_connection();
 
-/*-----------------------
-    Confirm user exists
-  -----------------------*/
+/*-------------------------------------------
+    Prevent duplicate email or phone number
+  -------------------------------------------*/
+
+if (get_request_method() === 'POST' || get_request_method() === 'PUT') {
+  try {
+    if (check_contact_email_exists($db_connection, $user_id, $email)) {
+      $db_connection->close();
+      send_error("Contact with email already exists", 400);
+    }
+
+    if (check_phone_number_exists($db_connection, $user_id, $phone)) {
+      $db_connection->close();
+      send_error("Contact with phone number already exists", 400);
+    }
+  } catch (Throwable $e) {
+    $db_connection->close();
+    send_error("Internal Server Error", 500);
+  }
+}
+
+/*-----------------------------------
+    Confirm user and contact exists
+  -----------------------------------*/
 
 try {
+  // check user existance
   if (!check_user_exists($db_connection, $user_id)) {
     $db_connection->close();
     send_error("User does not exist", 400);
   }
+
+  // check contact existance
+  $uses_contact_id = (get_request_method() === 'PUT' || get_request_method() === 'DELETE');
+  if ($uses_contact_id && !check_contact_exists($db_connection, $contact_id)) {
+    $db_connection->close();
+    send_error("Contact does not exist", 400);
+  }
 } catch (Throwable $e) {
   $db_connection->close();
   send_error("Internal Server Error", 500);
-}
-
-/*---------------------------
-    Check contact existence
-  ---------------------------*/
-
-$uses_contact_id = (get_request_method() === 'PUT' || get_request_method() === 'DELETE');
-if ($uses_contact_id && !check_contact_exists($db_connection, $contact_id)) {
-  $db_connection->close();
-  send_error("Contact does not exist", 400);
 }
 
 /*----------
