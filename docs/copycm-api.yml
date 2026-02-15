@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   description: This is the API documentaiton for the COP-4331 Small Project Contact Manager App
   version: 1.0.0
-  title: Contact Manager App [Draft]
+  title: Contact Manager App
   contact:
     email: an130962@ucf.edu; noahsemail@ucf.edu
 
@@ -30,6 +30,10 @@ paths:
       summary: registers an account
       operationId: signup
       description: Registers an account with the given credentials
+      consumes:
+      - application/json
+      produces:
+      - application/json
       parameters:
       - in: body
         name: accountCredentials
@@ -46,7 +50,7 @@ paths:
             confirm-password:
               type: string
 
-          example: {username: "ILoveCOPYSoMuch", email: "COPYIsTheBest@gmail.com", password: "EveryoneShouldUseCOPY", confirm-password: "EveryoneShouldUseCOPY"}
+          example: {username: "ILoveCOPY", email: "COPYIsTheBest@gmail.com", password: "Every1ShouldUseCOPY", confirm-password: "Every1ShouldUseCOPY"}
       responses:
         200:
           description: OK
@@ -80,6 +84,10 @@ paths:
       summary: logs user into account
       operationId: login
       description: Attempts to log user into account with the given credentials
+      consumes:
+      - application/json
+      produces:
+      - application/json
       parameters:
       - in: body
         name: accountCredentials
@@ -91,7 +99,7 @@ paths:
               type: string
             password:
               type: string
-          example: {username: "ILoveCOPYSoMuch", password: "EveryoneShouldUseCOPY"}
+          example: {username: "ILoveCOPY", password: "Every1ShouldUseCOPY"}
       responses:
         400:
           description: Invalid Input
@@ -114,13 +122,17 @@ paths:
           schema:
               $ref: "#/definitions/Error"
 
-  /users/logout.php:
+  /user/logout.php:
     post:
       tags:
       - authentication
       summary: logs user out of account
       operationId: logout
       description: Logs the user out of their current account if they are logged in
+      consumes:
+      - application/json
+      produces:
+      - application/json
       parameters:
       - in: header
         name: Cookie
@@ -133,7 +145,7 @@ paths:
         405:
           description: Method Not Allowed
 
-  /contacts.php:
+  /user/contacts.php:
 
     get:
       tags:
