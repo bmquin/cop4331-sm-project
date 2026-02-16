@@ -24,7 +24,7 @@ signupForm.addEventListener("submit", async (event) => {
     const request = await fetch(url, {
       method: "POST",
       credentials: "include",
-      body: new URLSearchParams(formData),
+      body: JSON.stringify(Object.fromEntries(formData.entries())),
     });
 
     const data = await request.json();
@@ -51,7 +51,7 @@ loginForm.addEventListener("submit", async (event) => {
     const request = await fetch(url, {
       method: "POST",
       credentials: "include",
-      body: new URLSearchParams(formData),
+      body: JSON.stringify(Object.fromEntries(formData.entries())),
     });
 
     const data = await request.json();

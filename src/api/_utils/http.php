@@ -4,17 +4,17 @@
 #  Client Request Utility
 #--------------------------
 
-function get_request_method() 
+function get_request_method()
 {
   return $_SERVER['REQUEST_METHOD'];
 }
 
-function get_uri() 
+function get_uri()
 {
   return $_SERVER['REQUEST_URI'];
 }
 
-function get_body() 
+function get_body()
 {
   return file_get_contents('php://input');
 }
@@ -33,27 +33,27 @@ function get_json_body()
 #  Server Response Utility
 #---------------------------
 
-function send_json(object|array $body) 
+function send_json(object|array $body)
 {
   header('Content-Type: application/json');
   echo json_encode($body);
   exit;
 }
 
-function send_result(object|array $result) 
+function send_result(object|array $result)
 {
   $body = ["success" => true, "result" => array_values((array)$result)];
   send_json($body);
 }
 
-function send_error(string $msg, int $error_code = 500) 
+function send_error(string $msg, int $error_code = 500)
 {
   http_response_code($error_code);
   $body = ["success" => false, "error" => $msg];
   send_json($body);
 }
 
-function send_success($msg) 
+function send_success($msg)
 {
   $body = ["success" => true, "message" => $msg];
   send_json($body);

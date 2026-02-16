@@ -44,7 +44,7 @@ function validate_username(string $username)
   return true;
 }
 
-function validate_legal_name(string $name) 
+function validate_legal_name(string $name)
 {
   if (strlen($name) < 3 || strlen($name) > 30) {
     return false;
@@ -54,7 +54,7 @@ function validate_legal_name(string $name)
 }
 
 # Lossly validates phone number
-function validate_phone(string $phone) 
+function validate_phone(string $phone)
 {
   # Remove all '-', ' ', '(', and ')' from phone number
   $phone = preg_replace('~[-\\s()]~', '', $phone);

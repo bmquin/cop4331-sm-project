@@ -2,59 +2,47 @@
 header("Content-Type: application/json");
 
 require "../_utils/database.php";
+require '../_utils/http.php';
 require "../_utils/api.php";
 require "../_utils/session.php";
 
-$db_connection = init_db_connection();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    http_response_code(405);
-    echo json_encode(["success" => false, "error" => "Method not allowed"]);
-    exit();
+  send_error("Method not allowed", 405);
 }
 
 if (is_logged_in()) {
-    http_response_code(403);
-    echo json_encode(["success" => true, "message" => "Already logged in"]);
-    exit();
+  send_error("Already logged in", 403);
 }
 
+$data = get_json_body();
 // Capture and sanitize input
-$username = sanitize_input($_POST["username"] ?? "");
-$password = sanitize_input($_POST["password"] ?? "");
+$username = sanitize_input($data["username"] ?? "");
+$password = sanitize_input($data["password"] ?? "");
 
 /* Validate inputs */
 if (!validate_username($username)) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "error" => "Invalid username"]);
-    exit();
+  send_error("Invalid username", 400);
 }
 
 if (!validate_password($password)) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "error" => "Invalid password"]);
-    exit();
+  send_error("Invalid password", 400);
 }
 
 /* Login User */
+$db_connection = init_db_connection();
 try {
-    $user = find_user_for_login($db_connection, $username, $password);
+  $user = find_user_for_login($db_connection, $username, $password);
 
-    if (!$user) {
-        http_response_code(401);
-        echo json_encode([
-            "success" => false,
-            "error" => "Incorrect credentials",
-        ]);
-        exit();
-    }
+  if (!$user) {
+    send_error("Invalid credentials", 401);
+  }
 
-    session_login($user["id"]);
-    echo json_encode(["success" => true, "message" => "Login successful"]);
+  session_login($user["id"]);
+  send_success("Login successful");
 } catch (Throwable $e) {
-    error_log($e->getMessage());
-    http_response_code(500);
-    echo json_encode(["success" => false, "error" => "Could not login user"]);
+  error_log($e->getMessage());
+  send_error("Could not login user");
 }
 
 $db_connection->close();
