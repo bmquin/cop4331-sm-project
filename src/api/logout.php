@@ -1,6 +1,18 @@
 <?php
-require_once __DIR__ . '/_utils/session.php';
+header('Content-Type: application/json');
 
-session_logout();
+require "./_utils/api.php";
+require "./_utils/session.php";
 
-http_response_code(200);
+if ($_SERVER["REQUEST_METHOD"] !== "GET") {
+  http_response_code(405);
+  echo "Method not allowed";
+  exit;
+}
+
+if (is_logged_in()) {
+  session_logout();
+}
+
+header('Location: /');
+exit;
