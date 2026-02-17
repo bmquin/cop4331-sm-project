@@ -153,12 +153,17 @@ main {
   padding: 5px;
 }
 
-.card-text h2, h3 {
+.card-text h2,
+h3 {
   font-weight: normal;
 }
 
 .redTitle {
   color: red;
+}
+
+.GitHub-Link {
+  color: yellow;
 }
 
 /*Add header at the end, don't worry about this now.*/
