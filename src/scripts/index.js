@@ -7,7 +7,7 @@ const signupForm = document.getElementById("signup-form");
 
 (async () => {
   const res = await fetch("../api/user/auth_status.php", { credentials: "include" });
-  if ((await res.json()).logged_in) location.replace("/contacts.html");
+  if ((await res.json()).logged_in) location.replace("contacts.html"); // removed the / in front of contacts
 })();
 
 registerLink.addEventListener("click", () => {

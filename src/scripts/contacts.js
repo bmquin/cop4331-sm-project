@@ -9,6 +9,11 @@ async function doLogout(event) {
   window.location.href = "index.html";
 }
 
+(async () => {
+  const res = await fetch("../api/user/auth_status.php", { credentials: "include" });
+  if (!(await res.json()).logged_in) location.replace("index.html");
+})();
+
 async function loadContacts() {
   const q = document.getElementById("search").value;
 
@@ -17,7 +22,7 @@ async function loadContacts() {
   });
 
   if (res.status == 401 || !res.ok) {
-    window.location.href = "index.html";
+    showAlert("Server Error", "Failed", "close-outline");
     return;
   }
 
