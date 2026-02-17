@@ -1,4 +1,4 @@
-Adam is a junior at UCF studying Computer Science. He is originally from Minnesota and moved to Florida to escape the frigid frozen winters that Minnesota brings. Adam has experience programming in many programming languages, with his favorites being C and Java. Despite taking many Computer Science classses before, this is Adam's first time contributing to a full website.
+Adam is a Junior at UCF studying Computer Science. He is originally from Minneapolis, Minnesota and moved to Florida to escape the frigid frozen winters of the Midwest. Adam has experience programming in many programming languages, with his favorites being C and Java. Despite taking many Computer Science classses before, this is Adam's first time contributing to a full website.
 
 Adam's Contributions to COPY include:
  - Organizing team meetings
