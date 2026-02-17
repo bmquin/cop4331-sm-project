@@ -40,6 +40,7 @@ body {
 .logo {
     font-size: 2em;
     color: #fff;
+    -webkit-user-select: none;
     user-select: none;
     align-items: center;
     position: relative;
@@ -113,8 +114,8 @@ body {
 
 .card {
     background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
 
     border: 1px solid rgba(255, 255, 255, 0.35);
     padding: 18px;
@@ -212,6 +213,7 @@ th {
     width: 350px;
     height: 70px;
     background: transparent;
+    -webkit-backdrop-filter: blur(50px);
     backdrop-filter: blur(50px);
     border-radius: 6px;
     padding: 0 15px;
