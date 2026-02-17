@@ -152,8 +152,11 @@ main {
   padding: 5px;
 }
 
-.redTitle
-{
+.card-text h2, h3 {
+  font-weight: normal;
+}
+
+.redTitle {
   color: red;
 }
 
