@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  description: This is the API documentaiton for the COP-4331 Small Project Contact Manager App
+  description: This is the API documentation for the COP-4331 Small Project Contact Manager App
   version: 1.0.0
   title: Contact Manager App
   contact:
@@ -142,6 +142,27 @@ paths:
       responses:
         200:
           description: OK
+        405:
+          description: Method Not Allowed
+          
+  /user/auth_status.php:
+    get:
+      tags:
+      - authentication
+      summary: returns current session user status
+      operationId: status
+      description: Returns the status of the current session user
+      parameters:
+      - in: header
+        name: Cookie
+        required: true
+        type: string
+        description: Cookie session information
+      responses:
+        200:
+          description: OK
+          schema:
+            example: {logged_in: true}
         405:
           description: Method Not Allowed
 
