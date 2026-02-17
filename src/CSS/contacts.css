@@ -93,7 +93,7 @@ body {
   transform-origin: left;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   body {
     padding-top: 60px;
   }
@@ -107,7 +107,7 @@ body {
   }
 
   .clock {
-    display: none;
+    display: flex;
   }
 
   .navigation a {
@@ -205,7 +205,7 @@ th {
 }
 
 /* Mobile fallback */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .name-row {
     flex-direction: column;
   }

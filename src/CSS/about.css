@@ -206,7 +206,7 @@ h3 {
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   ul {
     padding-left: 18px;
     text-align: left;
