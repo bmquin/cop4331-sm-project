@@ -10,6 +10,6 @@ Adam's Contributions to COPY include:
 
 Outside of classes, Adam is a Teaching Assistant for 2 Computer
 Science courses at UCF: Computer Science I and Systems Software. He
-greatly enjoys teaching others new stuff about Computer Science.
-Furthermore, he is also Research Assistant with The APPLeSEEd Lab @
+greatly enjoys teaching others about Computer Science.
+Furthermore, he is also a Research Assistant with The APPLeSEEd Lab @
 UCF.
