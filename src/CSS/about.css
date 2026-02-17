@@ -152,4 +152,9 @@ main {
   padding: 5px;
 }
 
+.redTitle
+{
+  color: red;
+}
+
 /*Add header at the end, don't worry about this now.*/
