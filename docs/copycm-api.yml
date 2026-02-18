@@ -101,6 +101,10 @@ paths:
               type: string
           example: {username: "ILoveCOPY", password: "Every1ShouldUseCOPY"}
       responses:
+        200:
+          description: OK
+          schema:
+              $ref: "#/definitions/Success"
         400:
           description: Invalid Input
           schema:
