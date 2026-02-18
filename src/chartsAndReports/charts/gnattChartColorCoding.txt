@@ -1,0 +1,23 @@
+Gantt Chart Colors:
+
+Everyone - Black
+
+Critical Path: Red
+
+Adam - Blue
+
+Ben - Green
+
+Darren - Orange
+
+Noah - Purple
+
+Pranav - Yellow
+
+Andrew - Pink
+
+Frontend Developer - Navy Blue
+
+Backend Developer (Pranav and Darren) - Magenta
+
+API Developer (Noah and Andrew) - Teal 
