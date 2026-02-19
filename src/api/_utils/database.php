@@ -94,32 +94,44 @@ function check_contact_exists(mysqli $db, int $contact_id)
   return $result->num_rows > 0;
 }
 
-function check_contact_email_exists(mysqli $db, int $user_id, string $email) 
+function find_contacts_by_email(mysqli $db, int $user_id, string $email) 
 {
-  $statement = $db->prepare("SELECT id FROM contacts WHERE user_id = ? AND email = ? LIMIT 1");
+  $statement = $db->prepare("SELECT id FROM contacts WHERE user_id = ? AND email = ?");
   $statement->bind_param("is", $user_id, $email);
   $statement->execute();
 
   $result = $statement->get_result();
+  $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-  return $result->num_rows > 0;
+  return array_column($rows, 'id');
 }
 
-function check_phone_number_exists(mysqli $db, int $user_id, string $target_phone) 
+function find_contacts_by_phone(mysqli $db, int $user_id, string $target_phone) 
 {
-  $statement = $db->prepare("SELECT phone FROM contacts WHERE user_id = ?");
+  $statement = $db->prepare("SELECT id, phone FROM contacts WHERE user_id = ?");
   $statement->bind_param("i", $user_id);
   $statement->execute();
 
   $result = $statement->get_result();
-  $phones = $result->fetch_all(MYSQLI_ASSOC);
-  $phones = array_column($phones, 'phone');
+  $rows = $result->fetch_all(MYSQLI_ASSOC);
 
   // remove all characters that aren't digits
   $target_phone = preg_replace('~\D~', '', $target_phone);
-  $phones = array_map(fn($old) => preg_replace('~\D~', '', $old), $phones);
+  $rows = array_map(function($old_row) {
+    $old_row['phone'] = preg_replace('~\D~', '', $old_row['phone']);
+    return $old_row;
+  }, $rows);
 
-  return in_array($target_phone, $phones);
+  // get all contacts with phone number equal to target phone number
+  $contact_ids = [];
+  foreach ($rows as $row) {
+    $id = $row['id'];
+    $phone = $row['phone'];
+    if($phone == $target_phone) {
+      $contact_ids[] = $id;
+    }
+  }
+  return $contact_ids;
 }
 
 function add_contact(mysqli $db, int $user_id, string $first_name, string $last_name, string $phone, string $email)

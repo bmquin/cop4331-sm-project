@@ -73,12 +73,15 @@ $db_connection = init_db_connection();
 
 if (get_request_method() === 'POST' || get_request_method() === 'PUT') {
   try {
-    if (check_contact_email_exists($db_connection, $user_id, $email)) {
+
+    $email_contacts = find_contacts_by_email($db_connection, $user_id, $email);
+    if (count($email_contacts) > 0 && !in_array($contact_id, $email_contacts)) {
       $db_connection->close();
       send_error("Contact with email already exists", 400);
     }
 
-    if (check_phone_number_exists($db_connection, $user_id, $phone)) {
+    $phone_contacts = find_contacts_by_phone($db_connection, $user_id, $phone);
+    if (count($phone_contacts) > 0 && !in_array($contact_id, $phone_contacts)) {
       $db_connection->close();
       send_error("Contact with phone number already exists", 400);
     }
