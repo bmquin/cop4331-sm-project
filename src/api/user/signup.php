@@ -61,7 +61,7 @@ try {
     $hashed_password,
   );
   session_login($created_usr_id);
-  send_success("Successfully logged in user");
+  send_success("Successfully signed up and logged in user");
 } catch (Throwable $e) {
   send_error("Could not create user");
 }
