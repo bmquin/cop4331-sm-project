@@ -20,8 +20,8 @@
   align-items: center;
 
   background: rgba(255, 255, 255, 0.1);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
 
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
@@ -34,9 +34,10 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url("../images/background/hecHallwayOffices.jpg") no-repeat;
-  background-size: cover;
-  background-position: center;
+  background: url("../images/background/orlandoSkyline.jpg") repeat;
+  background-repeat: repeat-x;
+  background-position: -625px -500px;
+  background-size: auto;
 }
 
 .logo {
@@ -88,6 +89,10 @@ body {
 @media (max-width: 768px) {
   body {
     padding-top: 60px;
+
+    background-repeat: repeat-x;
+    background-position: -500px 0px;
+    background-size: cover;
   }
 
   .header {

@@ -1,0 +1,23 @@
+Gantt Chart Colors:
+
+Everyone - Black
+
+Critical Path: Red
+
+Adam - Blue
+
+Ben - Green
+
+Darren - Orange
+
+Noah - Purple
+
+Pranav - Ice Blue
+
+Andrew - Pink
+
+Yellow - Overall Project
+
+Navy Blue - Subphase
+
+Turquoise - Main Phase
