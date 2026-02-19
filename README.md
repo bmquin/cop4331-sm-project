@@ -20,3 +20,19 @@ Link to our website: https://copycm.com/
 - Darren Squires Jr
 - Noah Gerard
 - Pranav Cheruku
+
+# Languages and Technologies
+
+### Front end
+- HTML
+- JavaScript
+- CSS
+### Back end
+- PHP
+- Linux
+- Apache 2.0
+- MySQL Server
+### Other
+- Git
+- GitHub
+

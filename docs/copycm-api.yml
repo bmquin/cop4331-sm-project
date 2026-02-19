@@ -29,7 +29,7 @@ paths:
       - authentication
       summary: registers an account
       operationId: signup
-      description: Registers an account with the given credentials
+      description: Registers an account with the given credentials and logs the user into the created account
       consumes:
       - application/json
       produces:
@@ -101,6 +101,10 @@ paths:
               type: string
           example: {username: "ILoveCOPY", password: "Every1ShouldUseCOPY"}
       responses:
+        200:
+          description: OK
+          schema:
+              $ref: "#/definitions/Success"
         400:
           description: Invalid Input
           schema:
@@ -205,9 +209,9 @@ paths:
               success: true
               results:
               - id: 0
-                first_name: Delicious
-                last_name: Bread
-                email: deliciousbread@gmail.com
+                first_name: First
+                last_name: Last
+                email: firstlast@gmail.com
                 phone: 012-345-6789
               - id: 1
                 first_name: Place
