@@ -5,16 +5,6 @@ require '../_utils/http.php';
 require '../_utils/api.php';
 require '../_utils/session.php';
 
-/*-----------------
-    Session check
-  -----------------*/
-
-if (!is_logged_in()) {
-  send_error("Not logged in", 401);
-}
-
-$user_id = session_user_id();
-
 /*-----------------------------
     Read query + request body
   -----------------------------*/
@@ -30,6 +20,12 @@ if (get_request_method() !== 'GET' && $data === null) {
 /*------------------
     Extract inputs
   ------------------*/
+
+if (is_logged_in()) {
+  $user_id = session_user_id();
+} else {
+  $user_id = $_GET['user_id'] ?? '';
+}
 
 $contact_id = $data['contact_id'] ?? null;
 $first_name = $data['first_name'] ?? null;
