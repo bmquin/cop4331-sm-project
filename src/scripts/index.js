@@ -38,9 +38,7 @@ signupForm.addEventListener("submit", async (event) => {
 
     if (data.success) {
       showAlert("Account created", "success", "checkmark-outline");
-      setTimeout(function () {
-        window.location.href = "contacts.html";
-      }, 500);
+      setTimeout(() => location.replace("contacts.html"), 500);
     } else {
       showAlert(data.error || "Signup failed", "error", "close-outline");
     }
@@ -67,9 +65,7 @@ loginForm.addEventListener("submit", async (event) => {
 
     if (data.success) {
       showAlert("Authenticated", "success", "checkmark-outline");
-      setTimeout(function () {
-        window.location.href = "contacts.html";
-      }, 500);
+      setTimeout(() => location.replace("contacts.html"), 500);
     } else {
       showAlert(
         data.message || data.error || "Incorrect credentials",
