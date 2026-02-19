@@ -6,7 +6,9 @@ const loginForm = document.getElementById("login-form");
 const signupForm = document.getElementById("signup-form");
 
 (async () => {
-  const res = await fetch("../api/user/auth_status.php", { credentials: "include" });
+  const res = await fetch("../api/user/auth_status.php", {
+    credentials: "include",
+  });
   if ((await res.json()).logged_in) location.replace("contacts.html"); // removed the / in front of contacts
 })();
 
@@ -36,7 +38,9 @@ signupForm.addEventListener("submit", async (event) => {
 
     if (data.success) {
       showAlert("Account created", "success", "checkmark-outline");
-      authModal.classList.remove("active");
+      setTimeout(function () {
+        window.location.href = "contacts.html";
+      }, 500);
     } else {
       showAlert(data.error || "Signup failed", "error", "close-outline");
     }
