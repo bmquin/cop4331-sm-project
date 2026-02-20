@@ -54,6 +54,12 @@ The site is responsive and works on both **desktop and mobile browsers**.
 - Search functionality (partial matching supported)
 - Buttons for adding, editing, and deleting contacts
 
+### `about.html`
+- Provides background information about the COPY project  
+- Describes why the project was created (COP 4331C Small Project requirement)  
+- Lists the technologies used (LAMP stack, deployment details)  
+- Introduces all team members and their roles
+
 ### `api/`
 - Handles backend API routes
 - Manages authentication
@@ -107,7 +113,7 @@ All design decisions, implementation logic, database schema design, code, and in
 - Benjamin Quintero (Frontend Developer)
 - Darren Squires Jr (Database Developer/Frontend Developer)
 - Noah Gerard (API Developer)
-- Pranav Cheruku (Database Developer)
+- Pranav Cheruku (Database Developer/Frontend Developer)
 
 ---
 
