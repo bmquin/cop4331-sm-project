@@ -1,113 +1,127 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>COPY - My Contacts</title>
-    <link href="CSS/contacts.css" rel="stylesheet" />
-  </head>
-  <body>
-    <section class="header">
-      <div class="clock">
-        <span id="date"></span>
-        <span id="time"></span>
-      </div>
-      <h1 class="logo">My Contacts</h1>
-      <nav class="navigation">
-        <a href="about.html">About us</a>
-        <a href="#" onclick="doLogout(event)">Log Out</a>
-      </nav>
-    </section>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COPY - My Contacts</title>
+  <link href="CSS/contacts.css" rel="stylesheet" />
+</head>
+<body>
 
-    <template id="alert-template">
-      <div class="alert-box">
-        <div class="alert">
-          <ion-icon></ion-icon>
-          <br />
-          <span></span>
-        </div>
-      </div>
-    </template>
-
-    <div class="card">
-      <h3>Add Contact</h3>
-
-      <form method="POST" action="#">
-        <div class="name-row">
-          <div class="field">
-            <label for="first_name">First Name</label>
-            <input
-              required
-              type="text"
-              id="first_name"
-              name="first_name"
-              placeholder="Aashish"
-            />
-          </div>
-
-          <div class="field">
-            <label for="last_name">Last Name</label>
-            <input
-              required
-              type="text"
-              id="last_name"
-              name="last_name"
-              placeholder="Yadavally"
-            />
-          </div>
-        </div>
-
-        <label for="email">Email</label>
-        <input
-          required
-          type="email"
-          id="email"
-          name="email"
-          placeholder="aashish.yadavally@ucf.edu"
-        />
-
-        <label for="phone">Phone</label>
-        <input type="tel" id="phone" name="phone" placeholder="(407) 555-1234" />
-
-        <button type="button" onclick="addContact()">Add Contact</button>
-      </form>
+  <!-- Fixed top navigation -->
+  <section class="header">
+    <div class="clock">
+      <span id="date"></span>
+      <span id="time"></span>
     </div>
 
-    <div class="card">
-      <h3>Contacts</h3>
+    <h1 class="logo">My Contacts</h1>
 
+    <nav class="navigation">
+      <a href="about.html">About us</a>
+      <a href="#" onclick="doLogout(event)">Log Out</a>
+    </nav>
+  </section>
+
+  <!-- Alert template (cloned dynamically in JS) -->
+  <template id="alert-template">
+    <div class="alert-box">
+      <div class="alert">
+        <ion-icon></ion-icon>
+        <br />
+        <span></span>
+      </div>
+    </div>
+  </template>
+
+  <!-- Add Contact Card -->
+  <div class="card">
+    <h3>Add Contact</h3>
+
+    <form method="POST" action="#">
+      <div class="name-row">
+        <div class="field">
+          <label for="first_name">First Name</label>
+          <input
+                  required
+                  type="text"
+                  id="first_name"
+                  name="first_name"
+                  placeholder="Aashish"
+          />
+        </div>
+
+        <div class="field">
+          <label for="last_name">Last Name</label>
+          <input
+                  required
+                  type="text"
+                  id="last_name"
+                  name="last_name"
+                  placeholder="Yadavally"
+          />
+        </div>
+      </div>
+
+      <label for="email">Email</label>
       <input
-        id="search"
-        type="text"
-        placeholder="Search for Contacts..."
-        onkeyup="loadContacts()"
+              required
+              type="email"
+              id="email"
+              name="email"
+              placeholder="aashish.yadavally@ucf.edu"
       />
 
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+      <label for="phone">Phone</label>
+      <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="(407) 555-1234"
+      />
 
-          <!-- IMPORTANT: ONLY THIS gets id="contacts" -->
-          <tbody id="contacts">
-            <!-- JS inserts <tr> rows here -->
-          </tbody>
-        </table>
-      </div>
+      <button type="button" onclick="addContact()">Add Contact</button>
+    </form>
+  </div>
+
+  <!-- Contacts Table Card -->
+  <div class="card">
+    <h3>Contacts</h3>
+
+    <!-- Live search input -->
+    <input
+            id="search"
+            type="text"
+            placeholder="Search for Contacts..."
+            onkeyup="loadContacts()"
+    />
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+
+        <!-- JS dynamically inserts rows here -->
+        <tbody id="contacts"></tbody>
+      </table>
     </div>
+  </div>
 
-    <script src="scripts/contacts.js"></script>
-    <script src="scripts/clock.js"></script>
-    <script src="scripts/messages.js"></script>
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
-  </body>
+  <!-- Scripts -->
+  <script src="scripts/contacts.js"></script>
+  <script src="scripts/clock.js"></script>
+  <script src="scripts/messages.js"></script>
+
+  <!-- Ionicons -->
+  <script
+          type="module"
+          src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+  ></script>
+</body>
 </html>

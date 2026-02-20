@@ -283,3 +283,11 @@ th {
 .alert.error ion-icon {
   color: red;
 }
+
+/* EDIT MODE: first + last vertical spacing */
+.name-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;   /* controls spacing between first & last */
+  max-width: 260px; /* optional – keeps them from stretching too wide */
+}
